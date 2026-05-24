@@ -451,7 +451,7 @@
             const data = Object.fromEntries(new FormData(e.target).entries()); 
             btn.textContent = 'Sending…'; btn.disabled = true; 
             try { 
-                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`); 
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : ''; 
                 const serviceType = data.service || 'Antim Sanskar Seva';
                 const res = await fetch(`${apiHost}/api/bookings`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, service: serviceType }) }); 
                 if (res.ok) { 

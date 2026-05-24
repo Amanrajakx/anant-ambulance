@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
 
             try {
-                const apiHost = window.location.port === '3001' ? '' : 'http://localhost:3001';
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                 const response = await fetch(`${apiHost}/api/bookings`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadTranslations() {
         try {
-            const apiHost = window.location.port === '3001' ? '' : 'http://localhost:3001';
+            const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
             const response = await fetch(`${apiHost}/translations.json`);
             translations = await response.json();
 

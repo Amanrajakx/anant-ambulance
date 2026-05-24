@@ -709,7 +709,7 @@
             document.querySelectorAll('.btn-refresh').forEach(b => b.classList.add('spinning'));
 
             try {
-                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                 const res = await fetch(`${apiHost}/api/bookings`);
                 const all = await res.json();
 
@@ -772,7 +772,7 @@
             // Fetch current operator message from server
             setTimeout(async () => {
                 try {
-                    const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                    const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                     const res = await fetch(`${apiHost}/api/bookings/${bookingId}`);
                     const data = await res.json();
                     if (data && data.operator_message) {
@@ -859,7 +859,7 @@
 
                 // Send to backend
                 try {
-                    const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                    const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                     const res = await fetch(`${apiHost}/api/bookings/${activeBookingId}/driver-location`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -900,7 +900,7 @@
             const statusEl = document.getElementById('patient-msg-status');
             
             try {
-                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                 const res = await fetch(`${apiHost}/api/bookings/${activeBookingId}/operator-message`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

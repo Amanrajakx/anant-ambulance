@@ -692,7 +692,7 @@
 
         async function fetchBookingInfo(id) {
             try {
-                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                 const res = await fetch(`${apiHost}/api/bookings/${id}`);
                 if (res.ok) {
                     const data = await res.json();
@@ -712,7 +712,7 @@
         async function pollLocation(id) {
             if (isArrived) return;
             try {
-                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const apiHost = (window.location.protocol === 'file:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? (window.location.port === '3001' ? '' : 'http://localhost:3001') : '';
                 const res = await fetch(`${apiHost}/api/bookings/${id}/location`);
                 if (res.ok) {
                     const data = await res.json();
