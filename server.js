@@ -182,11 +182,13 @@ const sendSMS = async (phone, name, service, id) => {
 
 const sendBookingEmails = async (customerEmail, name, phone, service, message, id) => {
     const brevoSmtpKey = process.env.BREVO_SMTP_KEY;
+    const brevoSmtpUser = process.env.BREVO_SMTP_USER || process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
     const adminEmail = process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
 
     console.log(`\n====================================`);
     console.log(`✉️ BREVO EMAIL NOTIFICATION LOG:`);
     console.log(`Booking ID: #${id}`);
+    console.log(`Brevo Login User: ${brevoSmtpUser}`);
     console.log(`Admin Recipient: ${adminEmail}`);
     console.log(`Customer Recipient: ${customerEmail || 'Not provided'}`);
 
@@ -201,7 +203,7 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
         port: 587,
         secure: false,
         auth: {
-            user: adminEmail,
+            user: brevoSmtpUser,
             pass: brevoSmtpKey
         }
     });
