@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Ambulance | Anant Ambulance — Call Now</title>
+    <meta name="description" content="24/7 Emergency Ambulance Service in Mumbai. ICU on wheels, cardiac support, rapid response. Call now.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --red: #D90429;
+            --red-dark: #9D0208;
+            --red-glow: rgba(217, 4, 41, 0.4);
+            --orange: #FF6B00;
+            --black: #0A0A0A;
+            --dark: #111317;
+            --surface: #1A1D24;
+            --text: #F0F0F0;
+            --muted: #8A8F9B;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Outfit', sans-serif; background: var(--black); color: var(--text); overflow-x: hidden; }
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            background-image: linear-gradient(rgba(217,4,41,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(217,4,41,0.04) 1px, transparent 1px);
+            background-size: 60px 60px; z-index: 0; animation: gridPan 20s linear infinite;
+        }
+        @keyframes gridPan { 0% { background-position: 0 0; } 100% { background-position: 60px 60px; } }
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 16px 40px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(217,4,41,0.2);
+        }
+        .logo { font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 800; color: var(--red); text-decoration: none; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .logo i { animation: pulse-icon 1.5s ease-in-out infinite; }
+        @keyframes pulse-icon { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .nav-back { display: flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .nav-back:hover { color: var(--text); }
+        .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 120px 20px 60px; }
+        .siren { width: 100px; height: 100px; background: var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 30px; animation: sirenPulse 1.2s ease-out infinite; }
+        @keyframes sirenPulse { 0% { box-shadow: 0 0 0 0 var(--red-glow); } 70% { box-shadow: 0 0 0 40px rgba(217,4,41,0); } 100% { box-shadow: 0 0 0 0 rgba(217,4,41,0); } }
+        .live-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(217,4,41,0.15); border: 1px solid rgba(217,4,41,0.4); color: #ff6b6b; font-size: 0.75rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; padding: 6px 16px; border-radius: 4px; margin-bottom: 24px; }
+        .live-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: blink 1s step-start infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+        h1 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 900; line-height: 0.95; letter-spacing: -2px; text-transform: uppercase; margin-bottom: 24px; }
+        h1 .accent { color: var(--red); display: block; }
+        .sub { font-size: 1.1rem; color: var(--muted); max-width: 480px; margin: 0 auto 50px; line-height: 1.7; }
+        .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
+        .btn-emergency { display: flex; align-items: center; gap: 12px; padding: 20px 40px; background: var(--red); color: white; border-radius: 6px; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; box-shadow: 0 0 30px var(--red-glow); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+        .btn-emergency::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); transform: translateX(-100%); animation: shimmer 2.5s infinite; }
+        @keyframes shimmer { 100% { transform: translateX(100%); } }
+        .btn-emergency:hover { transform: translateY(-3px); box-shadow: 0 0 50px var(--red-glow); }
+        .btn-secondary { display: flex; align-items: center; gap: 12px; padding: 20px 40px; background: transparent; color: var(--text); border: 2px solid rgba(255,255,255,0.15); border-radius: 6px; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; transition: border-color 0.2s, background 0.2s; }
+        .btn-secondary:hover { border-color: var(--orange); background: rgba(255,107,0,0.08); color: var(--orange); }
+        .stats-strip { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; padding: 24px 40px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; max-width: 700px; margin: 0 auto; }
+        .stat { text-align: center; }
+        .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--red); display: block; }
+        .stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+        .section { position: relative; z-index: 1; padding: 80px 40px; max-width: 1200px; margin: 0 auto; }
+        .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; }
+        .section h2 { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 50px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px; overflow: hidden; }
+        .service-item { background: var(--dark); padding: 36px 30px; transition: background 0.3s; position: relative; }
+        .service-item::after { content: ''; position: absolute; bottom: 0; left: 30px; right: 30px; height: 2px; background: var(--red); transform: scaleX(0); transition: transform 0.3s; }
+        .service-item:hover { background: rgba(217,4,41,0.06); }
+        .service-item:hover::after { transform: scaleX(1); }
+        .service-icon { font-size: 2rem; color: var(--red); margin-bottom: 16px; }
+        .service-item h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .service-item p { color: var(--muted); font-size: 0.92rem; line-height: 1.7; }
+        .price-tag { display: inline-block; margin-top: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--red); }
+        .timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0; position: relative; margin-top: 50px; }
+        .timeline-step { text-align: center; padding: 30px 20px; position: relative; }
+        .timeline-step:not(:last-child)::after { content: ''; position: absolute; top: 45px; right: -1px; width: 2px; height: 30px; background: rgba(217,4,41,0.3); }
+        .step-num { width: 50px; height: 50px; background: rgba(217,4,41,0.1); border: 2px solid var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--red); }
+        .timeline-step h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+        .timeline-step p { font-size: 0.85rem; color: var(--muted); }
+        .equip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 40px; }
+        .equip-item { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid rgba(255,255,255,0.05); padding: 14px 18px; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.2s; }
+        .equip-item:hover { border-color: rgba(217,4,41,0.4); }
+        .equip-item i { color: var(--red); font-size: 1rem; width: 20px; }
+        .form-section { position: relative; z-index: 1; background: var(--surface); border-top: 1px solid rgba(255,255,255,0.05); padding: 80px 40px; }
+        .form-inner { max-width: 700px; margin: 0 auto; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+        .form-group input, .form-group select, .form-group textarea { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 6px; padding: 14px 16px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.25); }
+        .form-group select option { background: var(--dark); }
+        .btn-submit { width: 100%; padding: 18px; margin-top: 20px; background: var(--red); color: white; border: none; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; box-shadow: 0 0 25px var(--red-glow); transition: transform 0.2s, box-shadow 0.2s; }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 0 40px var(--red-glow); }
+        footer { position: relative; z-index: 1; background: var(--black); border-top: 1px solid rgba(255,255,255,0.05); padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        footer p { color: var(--muted); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--red); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.4); z-index: 999; transition: transform 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.1); color: white; }
+        @media (max-width: 768px) {
+            header { padding: 14px 20px; }
+            .section { padding: 60px 20px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .cta-group { flex-direction: column; align-items: center; }
+            .btn-emergency, .btn-secondary { width: 100%; max-width: 320px; justify-content: center; }
+            footer { flex-direction: column; text-align: center; padding: 24px 20px; }
+            .timeline { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="./index.html" class="logo"><i class="fas fa-ambulance"></i> ANANT AMBULANCE</a>
+        <a href="./index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </header>
+
+    <section class="hero">
+        <div class="live-tag"><span class="live-dot"></span> Live Dispatch — Available Now</div>
+        <div class="siren"><i class="fas fa-ambulance"></i></div>
+        <h1>Emergency<br><span class="accent">Ambulance</span></h1>
+        <p class="sub">Every second counts. Our dispatched units are equipped with advanced life support and reach you in 10–20 minutes across Mumbai.</p>
+        <div class="cta-group">
+            <a href="tel:+919082495543" class="btn-emergency"><i class="fas fa-heartbeat"></i> Cardiac Line: 90824 95543</a>
+            <a href="tel:+919004805097" class="btn-secondary"><i class="fas fa-phone"></i> Normal: 90048 05097</a>
+        </div>
+        <div class="stats-strip">
+            <div class="stat"><span class="stat-num">10–20</span><span class="stat-label">Min Response</span></div>
+            <div class="stat"><span class="stat-num">150+</span><span class="stat-label">Fleet Size</span></div>
+            <div class="stat"><span class="stat-num">45K+</span><span class="stat-label">Lives Assisted</span></div>
+            <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Always On</span></div>
+        </div>
+    </section>
+
+    <div class="section">
+        <div class="section-label">What We Offer</div>
+        <h2>Ambulance Types</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <div class="service-icon"><i class="fas fa-truck-medical"></i></div>
+                <h3>Basic Life Support</h3>
+                <p>Oxygen cylinder, stretcher, first aid kit, trained driver and attendant. Ideal for non-critical transfers and outpatient transport.</p>
+                <span class="price-tag">From ₹1,500</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
+                <h3>Cardiac ICU Ambulance</h3>
+                <p>Cardiac monitor, defibrillator, ventilator, IV lines, and on-board specialist doctor. For heart attacks, strokes, and critical emergencies.</p>
+                <span class="price-tag">From ₹4,000</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon"><i class="fas fa-lungs"></i></div>
+                <h3>Ventilator Support</h3>
+                <p>Full ICU-grade ventilation and multi-parameter monitoring for patients requiring assisted breathing during inter-hospital transfer.</p>
+                <span class="price-tag">From ₹5,500</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon"><i class="fas fa-road"></i></div>
+                <h3>Outstation Transfer</h3>
+                <p>Long-distance transfers across Maharashtra and pan-India with complete medical support en route. Pre-booking available.</p>
+                <span class="price-tag">₹1,500 + ₹18/km</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+        <div class="section-label">How It Works</div>
+        <h2>From Call to Care</h2>
+        <div class="timeline">
+            <div class="timeline-step"><div class="step-num">1</div><h4>You Call</h4><p>Reach our 24/7 dispatch on the cardiac or normal line</p></div>
+            <div class="timeline-step"><div class="step-num">2</div><h4>We Dispatch</h4><p>Nearest suitable unit is deployed within 60 seconds</p></div>
+            <div class="timeline-step"><div class="step-num">3</div><h4>We Arrive</h4><p>10–20 minute average arrival across Greater Mumbai</p></div>
+            <div class="timeline-step"><div class="step-num">4</div><h4>Care Begins</h4><p>Treatment starts en route — we don't wait to reach hospital</p></div>
+        </div>
+    </div>
+
+    <div class="section" style="padding-top:0">
+        <div class="section-label">What's On Board</div>
+        <h2>Every Ambulance Carries</h2>
+        <div class="equip-grid">
+            <div class="equip-item"><i class="fas fa-check"></i> Oxygen Cylinder</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Cardiac Monitor</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Defibrillator (AED)</div>
+            <div class="equip-item"><i class="fas fa-check"></i> IV Lines & Drips</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Suction Machine</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Stretcher & Collar</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Emergency Medications</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Pulse Oximeter</div>
+            <div class="equip-item"><i class="fas fa-check"></i> BP Apparatus</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Trained Paramedic</div>
+            <div class="equip-item"><i class="fas fa-check"></i> Ventilator (ICU units)</div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="form-inner">
+            <div class="section-label">Pre-Book an Ambulance</div>
+            <h2 style="font-family:'Barlow Condensed',sans-serif;font-size:2.8rem;font-weight:900;text-transform:uppercase;letter-spacing:-1px;margin-bottom:10px;">Schedule in Advance</h2>
+            <p style="color:var(--muted)">For planned hospital transfers or outstation trips — book ahead and we'll assign the right vehicle.</p>
+            <form id="booking-form">
+                <div class="form-grid">
+                    <div class="form-group"><label>Your Name</label><input type="text" name="name" placeholder="Full name" required></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required></div>
+                    <div class="form-group"><label>Email Address (Optional)</label><input type="email" name="email" placeholder="customer@example.com"></div>
+                    <div class="form-group">
+                        <label>Service Type</label>
+                        <select name="service" required>
+                            <option value="">Select ambulance type</option>
+                            <option value="Basic Ambulance">Basic Life Support</option>
+                            <option value="ICU Ambulance">Cardiac ICU Ambulance</option>
+                            <option value="Ventilator Ambulance">Ventilator Ambulance</option>
+                            <option value="Outstation Transfer">Outstation Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group"><label>Pickup Date/Time</label><input type="datetime-local" name="datetime"></div>
+                    <div class="form-group full">
+                        <label>Pickup Location & Details</label>
+                        <div style="display:flex; gap: 10px; margin-bottom:10px;">
+                            <button type="button" id="btn-locate" style="padding:8px 12px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:#fff; border-radius:4px; cursor:pointer;">
+                                <i class="fas fa-location-arrow"></i> Use Current GPS Location
+                            </button>
+                            <span id="loc-status" style="align-self:center; color:#25D366; font-size:0.9rem;"></span>
+                        </div>
+                        <textarea name="message" id="message-text" rows="3" placeholder="Address, floor, landmark — and any medical condition we should know about"></textarea>
+                        <input type="hidden" name="lat" id="user-lat">
+                        <input type="hidden" name="lng" id="user-lng">
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-paper-plane"></i> &nbsp;Send Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Anant Ambulance. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="./index.html">Home</a>
+            <a href="./antim-sanskar.html">Antim Sanskar</a>
+            <a href="/index.html#contact">Contact</a>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/919820818626?text=I%20need%20an%20ambulance%20urgently." class="whatsapp-float" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Booking Success Modal -->
+    <div id="success-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+        <div style="background:#161920; border:1px solid rgba(255,255,255,0.1); border-radius:16px; width:100%; max-width:480px; overflow:hidden; box-shadow:0 15px 50px rgba(0,0,0,0.6); text-align:center; padding:30px;">
+            <div style="width:72px; height:72px; background:rgba(37,211,102,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; color:#25D366; font-size:2.5rem;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <h2 style="font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; font-size:1.8rem; font-weight:800; letter-spacing:1px; margin-bottom:8px; color:#fff;">Booking Confirmed!</h2>
+            <p style="color:#A0A5B5; font-size:0.95rem; line-height:1.5; margin-bottom:24px;">Your request has been registered. We are deploying your vehicle right away.</p>
+            
+            <div style="background:rgba(0,0,0,0.2); border-radius:8px; padding:15px; text-align:left; font-size:0.85rem; color:#8C92A4; margin-bottom:24px; display:flex; flex-direction:column; gap:8px; border:1px solid rgba(255,255,255,0.05);">
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Booking ID:</span> <strong id="success-booking-id" style="color:#fff;">#--</strong></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Patient Name:</span> <strong id="success-patient-name" style="color:#fff;">--</strong></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Phone:</span> <strong id="success-phone" style="color:#fff;">--</strong></div>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <button onclick="window.location.href='./index.html'" style="background:#FF6B00; color:#fff; border:none; padding:14px 20px; border-radius:8px; font-family:'Outfit',sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; width:100%; transition:transform 0.2s;">
+                    OK, Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const btnLocate = document.getElementById('btn-locate');
+        if (btnLocate) {
+            btnLocate.addEventListener('click', () => {
+                const status = document.getElementById('loc-status');
+                status.textContent = 'Locating...';
+                if (!navigator.geolocation) {
+                    status.textContent = 'Geolocation is not supported by your browser';
+                    status.style.color = '#D90429';
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition((position) => {
+                    document.getElementById('user-lat').value = position.coords.latitude;
+                    document.getElementById('user-lng').value = position.coords.longitude;
+                    status.textContent = 'Location secured!';
+                    status.style.color = '#25D366';
+                }, () => {
+                    status.textContent = 'Unable to retrieve your location';
+                    status.style.color = '#D90429';
+                });
+            });
+        }
+
+        const form = document.getElementById('booking-form');
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const btn = form.querySelector('.btn-submit');
+                const orig = btn.innerHTML;
+                const data = Object.fromEntries(new FormData(form).entries());
+                btn.textContent = 'Sending...'; btn.disabled = true;
+                try {
+                    const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                    const serviceType = data.service || 'Emergency Ambulance';
+                    const res = await fetch(`${apiHost}/api/bookings`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, service: serviceType }) });
+                    if (res.ok) { 
+                        const result = await res.json();
+                        
+                        // Populate Success Modal details
+                        document.getElementById('success-booking-id').textContent = `#${result.id}`;
+                        document.getElementById('success-patient-name').textContent = data.name;
+                        document.getElementById('success-phone').textContent = data.phone;
+                        
+                        // Tracking option removed
+                        
+                        // Display Success Modal
+                        document.getElementById('success-modal').style.display = 'flex';
+                    }
+                    else { alert('Server error: ' + res.status); }
+                } catch (err) { 
+                    alert('Connection error: ' + err.message); 
+                }
+                finally { btn.innerHTML = orig; btn.disabled = false; }
+            });
+        }
+    </script>
+</body>
+</html>

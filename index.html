@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anant Ambulance | 24/7 Emergency & Antim Sanskar Service</title>
+    <meta name="description"
+        content="Reliable 24/7 ambulance services and respectful Antim Sanskar (funeral) services. Serving with care and urgency.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fas fa-ambulance"></i>
+                    ANANT AMBULANCE
+                </a>
+                <ul class="nav-links" id="nav-links">
+                    <li><a href="#home" data-i18n="nav_home">Home</a></li>
+                    <li><a href="#services" data-i18n="nav_services">Services</a></li>
+                    <li><a href="#about" data-i18n="nav_about">About</a></li>
+                    <li><a href="#contact" data-i18n="nav_contact">Contact</a></li>
+                    <li><a href="./booking-form.html" data-i18n="nav_booking_form">Booking Form</a></li>
+                </ul>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="lang-selector">
+                        <select id="lang-switch">
+                            <option value="en">EN</option>
+                            <option value="hi">HI</option>
+                            <option value="mr">MR</option>
+                        </select>
+                    </div>
+                    <div class="header-calls">
+                        <a href="tel:+919082495543" class="call-btn pulse" style="background: #e63946;"
+                            title="Cardiac Call">
+                            <i class="fas fa-heartbeat"></i>
+                            <span class="btn-text" data-i18n="header_cardiac">Cardiac: 90824 95543</span>
+                        </a>
+                        <a href="tel:+919004805097" class="call-btn" title="Normal Call">
+                            <i class="fas fa-phone"></i>
+                            <span class="btn-text" data-i18n="header_normal">Normal: 90048 05097</span>
+                        </a>
+                    </div>
+                    <!-- Hamburger Menu -->
+                    <button class="hamburger" id="hamburger" aria-label="Open menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home" class="hero">
+            <div class="container" style="display: flex; align-items: center; gap: 40px;">
+                <div class="hero-content">
+                    <div class="emergency-badge"><i class="fas fa-clock"></i> 24/7 EMERGENCY CARE</div>
+                    <h1><span data-i18n="hero_title">Saving Lives</span> <span>One Call at a Time</span></h1>
+                    <p data-i18n="hero_desc">India's trusted emergency response partner. Advanced Life Support, ICU on
+                        Wheels, and Respectful Funeral Services available 24/7.</p>
+                    <div class="trust-badge">
+                        <i class="fab fa-google"></i> 4.9 <span class="stars">★★★★★</span> (2000+ Reviews)
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-top: 30px;">
+                        <a href="tel:+919082495543" class="call-btn pulse"
+                            style="background: #e63946; padding: 15px 30px;">
+                            <i class="fas fa-heartbeat"></i> <span data-i18n="cardiac_call">Cardiac Call</span>
+                        </a>
+                        <a href="tel:+919004805097" class="call-btn" style="padding: 15px 30px;">
+                            <i class="fas fa-phone"></i> <span data-i18n="normal_call">Normal Call</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="./hearse_service.jpg" alt="Anant Ambulance Orange and White">
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="45000">0</h2>
+                        <p>Lives Assisted</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="15">0</h2>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="150">0</h2>
+                        <p>Fleet Size</p>
+                    </div>
+                    <div class="stat-item">
+                        <h2 class="counter" data-target="24">0</h2>
+                        <p>Cities Covered</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solutions Section -->
+        <section class="solutions">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our <span style="color: var(--primary-orange);">Solutions</span></h2>
+                    <div class="line"></div>
+                </div>
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <i class="fas fa-hospital"></i>
+                        <h4>Hospitals</h4>
+                        <p>Seamless operation management & medical room setup.</p>
+                    </div>
+                    <div class="solution-card">
+                        <i class="fas fa-building"></i>
+                        <h4>Corporates</h4>
+                        <p>Ambulance subscription & on-site wellness programs.</p>
+                    </div>
+                    <div class="solution-card">
+                        <i class="fas fa-users"></i>
+                        <h4>Societies</h4>
+                        <p>Dedicated cover for housing societies & schools.</p>
+                    </div>
+                    <div class="solution-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <h4>Events</h4>
+                        <p>On-site medical care for sports & gatherings.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2><span data-i18n="services_title">Our Specialized</span> <span
+                            style="color: var(--primary-orange);">Services</span></h2>
+                    <div class="line"></div>
+                </div>
+                <div class="custom-services-grid">
+                    <!-- Basic Life Support -->
+                    <div class="custom-service-card">
+                        <div class="custom-service-img-wrapper">
+                            <img src="./basic_support.jpg" alt="Basic Life Support">
+                        </div>
+                        <div class="custom-service-info">
+                            <h3 data-i18n="service_basic_title">Basic Life Support</h3>
+                            <p data-i18n="service_basic_desc">Non-critical care on the go. Paramedic, EMT & nurse
+                                onboard for safe transfers.</p>
+                        </div>
+                    </div>
+                    <!-- Advance Life Support -->
+                    <div class="custom-service-card">
+                        <div class="custom-service-img-wrapper">
+                            <img src="./advance_support.jpg" alt="Advance Life Support">
+                        </div>
+                        <div class="custom-service-info">
+                            <h3 data-i18n="service_advance_title">Advance Life Support</h3>
+                            <p data-i18n="service_advance_desc">ICU on wheels. Ventilator, monitor, doctor for critical
+                                medical emergencies.</p>
+                        </div>
+                    </div>
+                    <!-- Hearse Ambulance Service -->
+                    <div class="custom-service-card">
+                        <div class="custom-service-img-wrapper">
+                            <img src="./hearse_service.jpg" alt="Hearse Ambulance Service">
+                        </div>
+                        <div class="custom-service-info">
+                            <h3 data-i18n="service_hearse_title">Hearse Ambulance Service</h3>
+                            <p data-i18n="service_hearse_desc">Dignified last ride for your loved one. Reliable,
+                                respectful, and timely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing">
+            <div class="container">
+                <div class="section-title">
+                    <h2><span data-i18n="pricing_title">Service</span> <span
+                            style="color: var(--primary-orange);">Pricing</span></h2>
+                    <div class="line"></div>
+                </div>
+                <div class="pricing-grid">
+                    <div class="pricing-card">
+                        <h3 data-i18n="basic_ambulance">Basic Ambulance</h3>
+                        <div class="price">₹1,500<span style="font-size: 1rem; font-weight: 400;">/base</span></div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Oxygen Cylinder</li>
+                            <li><i class="fas fa-check"></i> Stretcher & First Aid</li>
+                            <li><i class="fas fa-check"></i> Trained Driver</li>
+                        </ul>
+                        <a href="tel:+919004805097" class="call-btn" style="justify-content: center;">Book Now</a>
+                    </div>
+                    <div class="pricing-card" style="border: 2px solid var(--primary-orange); transform: scale(1.05);">
+                        <h3 data-i18n="icu_ambulance">Cardiac ICU Ambulance</h3>
+                        <div class="price">₹4,000<span style="font-size: 1rem; font-weight: 400;">/base</span></div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Ventilator Support</li>
+                            <li><i class="fas fa-check"></i> Cardiac Monitor</li>
+                            <li><i class="fas fa-check"></i> Specialist Doctor/MD</li>
+                        </ul>
+                        <a href="tel:+919082495543" class="call-btn" style="justify-content: center;">Book Now</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 data-i18n="electric_funeral">Electric Antim Sanskar</h3>
+                        <div class="price">₹8,500<span style="font-size: 1rem; font-weight: 400;">/start</span></div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Hearse Van</li>
+                            <li><i class="fas fa-check"></i> Electric Cremation Setup</li>
+                            <li><i class="fas fa-check"></i> Ritual Management</li>
+                            <li><i class="fas fa-check"></i> Support Staff</li>
+                        </ul>
+                        <a href="tel:+919004805097" class="call-btn" style="justify-content: center;">Book Now</a>
+                    </div>
+                    <div class="pricing-card">
+                        <h3 data-i18n="traditional_funeral">Traditional Antim Sanskar</h3>
+                        <div class="price">₹10,000<span style="font-size: 1rem; font-weight: 400;">/start</span></div>
+                        <ul>
+                            <li><i class="fas fa-check"></i> Hearse Van</li>
+                            <li><i class="fas fa-check"></i> Traditional Cremation Setup</li>
+                            <li><i class="fas fa-check"></i> Ritual Management</li>
+                            <li><i class="fas fa-check"></i> Support Staff</li>
+                        </ul>
+                        <a href="tel:+919004805097" class="call-btn" style="justify-content: center;">Book Now</a>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 40px;">
+                    <p style="font-size: 1.15rem; font-weight: 700; color: #111;" data-i18n="outstation_pricing_note">* Outside Mumbai area, the price will be Base Price + ₹18/km</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image-block">
+                        <div class="about-img-frame">
+                            <img src="./hearse_service.jpg" alt="Anant Ambulance Fleet" class="about-img">
+                            <div class="about-badge">
+                                <i class="fas fa-award"></i>
+                                <div>
+                                    <strong>15+ Years</strong>
+                                    <span>of Trusted Service</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-content">
+                        <div class="section-title" style="text-align: left; margin-bottom: 30px;">
+                            <h2>About <span style="color: var(--primary-orange);">Anant Ambulance</span></h2>
+                            <div class="line" style="margin: 10px 0;"></div>
+                        </div>
+                        <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 1.05rem;">
+                            Founded in Mumbai over 15 years ago, Anant Ambulance has grown from a single vehicle into
+                            one of Maharashtra's most trusted emergency care networks. We serve individuals, hospitals,
+                            housing societies, and corporates with equal dedication.
+                        </p>
+                        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">
+                            Our fleet of 150+ vehicles spans Basic Life Support, Advanced Cardiac ICU, and respectful
+                            Antim Sanskar (funeral) services — all available around the clock. Every call is treated as
+                            a life-and-death priority, because it is.
+                        </p>
+                        <div class="about-values">
+                            <div class="value-item">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <strong>Rapid Response</strong>
+                                    <p>10–20 min city response time</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>Certified Staff</strong>
+                                    <p>Trained paramedics & doctors</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <i class="fas fa-heart"></i>
+                                <div>
+                                    <strong>Compassionate Care</strong>
+                                    <p>Dignity in every service</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-title">
+                    <h2>What <span style="color: var(--primary-orange);">Families Say</span></h2>
+                    <div class="line"></div>
+                </div>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Reached within 10 minutes when we needed help for my father. The staff was very professional
+                            and caring."</p>
+                        <div class="user">
+                            <div class="user-avatar" style="background: #FF6B00;">R</div>
+                            <div>
+                                <strong>Rajesh Kumar</strong>
+                                <p style="font-size: 0.8rem; color: #999;">Local Resident, Mumbai</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Very respectful service for our grandfather's last rites. They handled everything so we
+                            could focus on grieving."</p>
+                        <div class="user">
+                            <div class="user-avatar" style="background: #FF8E3C;">A</div>
+                            <div>
+                                <strong>Anjali Sharma</strong>
+                                <p style="font-size: 0.8rem; color: #999;">Grateful Family, Thane</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"We had a cardiac emergency at 3am. Anant's ICU ambulance arrived in 12 minutes. I am sure it
+                            saved my husband's life."</p>
+                        <div class="user">
+                            <div class="user-avatar" style="background: #e63946;">P</div>
+                            <div>
+                                <strong>Priya Mehta</strong>
+                                <p style="font-size: 0.8rem; color: #999;">Bandra, Mumbai</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p>"Transferred my mother from Pune to Mumbai with full ICU support. Seamless, professional, and
+                            affordable. Highly recommended."</p>
+                        <div class="user">
+                            <div class="user-avatar" style="background: #2d6a4f;">V</div>
+                            <div>
+                                <strong>Vikram Deshmukh</strong>
+                                <p style="font-size: 0.8rem; color: #999;">Pune</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Common <span style="color: var(--primary-orange);">Questions</span></h2>
+                    <div class="line"></div>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">What is your response time? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Depending on your location, we usually arrive within 10–20 minutes in
+                            the city area. For outstation calls, we dispatch immediately and provide an ETA upon
+                            booking.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Do you provide interstate transfers? <i
+                                class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Yes, we provide long-distance patient transfers across states with full
+                            ICU and ventilator support. Our team coordinates with destination hospitals in advance.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Is oxygen available in all ambulances? <i
+                                class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Yes, every single one of our ambulances is equipped with oxygen
+                            cylinders and basic life support equipment. ICU ambulances carry advanced ventilator
+                            systems.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">How do I pay for the service? <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">We accept cash, UPI, and card payments. For corporate clients, monthly
+                            invoicing is available. Payment is settled after the service is rendered — we never delay
+                            help for payment reasons.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Can I book in advance for planned hospital transfers? <i
+                                class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Absolutely. You can book in advance via the form on this page, by
+                            WhatsApp, or by calling us. We confirm the booking and assign the appropriate vehicle based
+                            on medical needs.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">What areas do you cover? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">We are based in Mumbai and cover all of Greater Mumbai, Thane, Navi
+                            Mumbai, Pune, Nashik, and surrounding regions. We also handle pan-India long-distance
+                            transfers on request.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">Are your Antim Sanskar services available for all communities? <i
+                                class="fas fa-chevron-down"></i></div>
+                        <div class="faq-answer">Yes. We respectfully serve all communities and religions, and can
+                            coordinate with priests or religious coordinators as required by the family's tradition.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <div class="contact-container" style="max-width: 800px; margin: 0 auto; display: block;">
+                    <div class="contact-info">
+                        <h2><span data-i18n="contact_title">Contact</span> <span>Us</span></h2>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px; margin-bottom: 30px;">
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <i class="fas fa-phone-alt"
+                                    style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h4 style="color: white;">Phone Numbers</h4>
+                                    <p><strong>Cardiac:</strong> <a href="tel:+919082495543"
+                                            style="color: inherit; text-decoration: none;">+91 90824 95543</a></p>
+                                    <p><strong>Normal:</strong> <a href="tel:+919004805097"
+                                            style="color: inherit; text-decoration: none;">+91 90048 05097</a></p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <i class="fas fa-map-marker-alt"
+                                    style="color: var(--primary-orange); font-size: 1.5rem;"></i>
+                                <div>
+                                    <h4 style="color: white;">Service Area</h4>
+                                    <p>Available across Mumbai and surrounding regions 24/7.</p>
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 20px; align-items: center;">
+                                <i class="fab fa-whatsapp" style="color: #25d366; font-size: 1.5rem;"></i>
+                                <div>
+                                    <h4 style="color: white;">WhatsApp</h4>
+                                    <a href="https://wa.me/919820818626?text=Hello%2C%20I%20need%20ambulance%20assistance."
+                                        style="color: #25d366; text-decoration: none; font-weight: 600;">+91 98208
+                                        18626</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="map-container" style="height: 350px;">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3773.2236732497827!2d72.81327519999999!3d18.965726699999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7ce72e0d235f1%3A0x698fc7b311d5db8b!2sBhatia%20Hospital!5e0!3m2!1sen!2sin!4v1778600915309!5m2!1sen!2sin"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/919820818626?text=Emergency%20Ambulance%20Required" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Brand -->
+                <div class="footer-col">
+                    <a href="#" class="logo" style="margin-bottom: 15px; display: inline-flex;">
+                        <i class="fas fa-ambulance"></i> ANANT AMBULANCE
+                    </a>
+                    <p style="color: #aaa; font-size: 0.9rem; line-height: 1.8;">Serving Mumbai and Maharashtra with
+                        life-saving emergency care and respectful funeral services since 2009.</p>
+                    <div class="footer-social">
+                        <a href="https://wa.me/919820818626" aria-label="WhatsApp" target="_blank"><i
+                                class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/anant_ambulance_service" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="./admin.html">Admin Dashboard</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="footer-col">
+                    <h5 class="footer-heading">Our Services</h5>
+                    <ul class="footer-links">
+                        <li><a href="#services">Emergency Ambulance</a></li>
+                        <li><a href="#services">ICU / Cardiac Ambulance</a></li>
+                        <li><a href="#services">Antim Sanskar Service</a></li>
+                        <li><a href="#services">Hospital Transfers</a></li>
+                        <li><a href="#services">Outstation Transfers</a></li>
+                        <li><a href="#services">Event Medical Cover</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-col">
+                    <h5 class="footer-heading">Emergency Contacts</h5>
+                    <div class="footer-contact-list">
+                        <div class="footer-contact-item">
+                            <i class="fas fa-heartbeat" style="color: #e63946;"></i>
+                            <div>
+                                <small>Cardiac Emergency</small>
+                                <a href="tel:+919082495543">+91 90824 95543</a>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fas fa-phone" style="color: var(--primary-orange);"></i>
+                            <div>
+                                <small>General Booking</small>
+                                <a href="tel:+919004805097">+91 90048 05097</a>
+                            </div>
+                        </div>
+                        <div class="footer-contact-item">
+                            <i class="fab fa-whatsapp" style="color: #25d366;"></i>
+                            <div>
+                                <small>WhatsApp Us</small>
+                                <a href="https://wa.me/919820818626">Message Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; <span id="year"></span> Anant Ambulance. All rights reserved. | Mumbai, Maharashtra</p>
+                <p style="font-size: 0.8rem; color: #555; margin-top: 5px;">Built with care for those who care for
+                    others.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="./main.js"></script>
+</body>
+
+</html>

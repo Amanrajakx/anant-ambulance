@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Tracking | Anant Ambulance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Outfit:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <style>
+        :root {
+            --primary: #D90429;
+            --primary-dark: #9D0208;
+            --orange: #FF6B00;
+            --black: #0A0A0A;
+            --dark: #121418;
+            --surface: #1E2128;
+            --text: #F0F0F0;
+            --muted: #8A8F9B;
+            --border: rgba(255, 255, 255, 0.08);
+            --success: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--black);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        header {
+            padding: 16px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--dark);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+        }
+
+        .help-btn {
+            background: rgba(217, 4, 41, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(217, 4, 41, 0.2);
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .help-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Container */
+        .tracking-container {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            height: calc(100vh - 65px);
+        }
+
+        /* Left Panel - Status & Timeline */
+        .status-panel {
+            background: var(--dark);
+            border-right: 1px solid var(--border);
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .booking-info {
+            margin-bottom: 30px;
+        }
+
+        .booking-info h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .booking-info p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .booking-tag {
+            display: inline-block;
+            background: rgba(255, 107, 0, 0.15);
+            color: var(--orange);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Driver Card */
+        .driver-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            display: none;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .driver-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--success);
+        }
+
+        .driver-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .driver-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+        }
+
+        .driver-details h3 {
+            font-size: 1.15rem;
+            margin-bottom: 2px;
+        }
+
+        .driver-details p {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .vehicle-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 15px;
+        }
+
+        .vehicle-plate {
+            display: inline-block;
+            background: #FFD700;
+            color: black;
+            font-family: monospace;
+            font-size: 0.95rem;
+            font-weight: 800;
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid #000;
+        }
+
+        .driver-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 15px;
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .action-btn {
+            padding: 10px;
+            border-radius: 6px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-call {
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-call:hover {
+            background: var(--success);
+            color: #000;
+        }
+
+        .btn-msg {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-msg:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .eta-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid rgba(37, 211, 102, 0.2);
+        }
+
+        .eta-box strong {
+            font-size: 1.6rem;
+            color: var(--success);
+        }
+
+        .eta-box span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .eta-box .distance {
+            font-size: 0.9rem;
+            color: #FFF;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            margin-top: 20px;
+            padding-left: 20px;
+            flex: 1;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            width: 2px;
+            height: calc(100% - 20px);
+            background: var(--border);
+        }
+
+        .timeline-progress {
+            position: absolute;
+            top: 10px;
+            left: 8px;
+            width: 2px;
+            height: 0;
+            background: var(--primary);
+            transition: height 0.5s ease;
+        }
+
+        .timeline-step {
+            position: relative;
+            margin-bottom: 35px;
+            opacity: 0.4;
+            transition: opacity 0.5s;
+        }
+
+        .timeline-step:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-step.active {
+            opacity: 1;
+        }
+
+        .timeline-step.completed {
+            opacity: 1;
+        }
+
+        .step-dot {
+            position: absolute;
+            left: -20px;
+            top: 2px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--dark);
+            border: 2px solid var(--muted);
+            transform: translateX(-50%);
+            z-index: 2;
+            transition: all 0.5s;
+        }
+
+        .timeline-step.active .step-dot {
+            border-color: var(--primary);
+            background: var(--primary);
+            box-shadow: 0 0 15px rgba(217, 4, 41, 0.5);
+            animation: pulse-dot 1.5s infinite;
+        }
+
+        .timeline-step.completed .step-dot {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        @keyframes pulse-dot {
+            0% {
+                box-shadow: 0 0 0 0 rgba(217, 4, 41, 0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(217, 4, 41, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(217, 4, 41, 0);
+            }
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        .step-content p {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .step-time {
+            font-size: 0.8rem;
+            color: var(--orange);
+            margin-top: 6px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .timeline-step.active .step-time,
+        .timeline-step.completed .step-time {
+            display: block;
+        }
+
+        /* Map Panel */
+        .map-panel {
+            position: relative;
+            background: #111;
+            z-index: 1;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #111;
+        }
+
+        /* Dark Mode Map Filters */
+        .leaflet-layer,
+        .leaflet-control-zoom-in,
+        .leaflet-control-zoom-out,
+        .leaflet-control-attribution {
+            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+        }
+
+        /* Custom Ambulance Marker */
+        .amb-marker-container {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 0 3px var(--primary);
+            position: relative;
+        }
+
+        .amb-marker-container i {
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .amb-marker-pulse {
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border-radius: 50%;
+            border: 2px solid var(--primary);
+            animation: pulse-ring 1.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        /* Overlay text on map */
+        .map-overlay {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 12px 24px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: blink 1s step-start infinite;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .tracking-container {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .tracking-container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 500px;
+                height: auto;
+            }
+
+            #map {
+                height: 500px;
+            }
+
+            .status-panel {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <a href="./index.html" class="logo"><i class="fas fa-ambulance"></i> ANANT AMBULANCE</a>
+        <a href="tel:+919004805097" class="help-btn"><i class="fas fa-phone-alt"></i> Call Dispatch</a>
+    </header>
+
+    <div class="tracking-container">
+
+        <!-- Left Panel -->
+        <div class="status-panel">
+
+            <div class="booking-info">
+                <h1>Live Tracking</h1>
+                <p id="patient-name">Loading patient info...</p>
+                <div class="booking-tag" id="service-type">Loading...</div>
+            </div>
+
+            <!-- Live Operator/Driver Announcement -->
+            <div id="operator-msg-box" style="display:none; background:rgba(219,4,41,0.06); border:1px dashed var(--primary); border-radius:10px; padding:14px; margin:20px 0; font-size:0.9rem; line-height:1.4; color:#fff; box-shadow:0 4px 15px rgba(0,0,0,0.2);">
+                <div style="font-size:0.75rem; font-weight:700; text-transform:uppercase; color:var(--primary); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                    <span class="live-dot" style="animation:blink 1.5s infinite; width:8px; height:8px; box-shadow:0 0 6px var(--primary); background:var(--primary);"></span> Dispatcher Message:
+                </div>
+                <div id="operator-msg-text" style="font-style:italic; color:#e2e8f0;">—</div>
+            </div>
+
+            <div class="driver-card" id="driver-card">
+                <div class="driver-header">
+                    <div class="driver-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div class="driver-details">
+                        <h3>Amay Kadam</h3>
+                        <p>Owner & Driver</p>
+                    </div>
+                </div>
+                <div class="vehicle-info">
+                    <div class="vehicle-plate">MH 02 AB 1234</div>
+                    <div style="font-size: 0.85rem; color: var(--muted);"><i class="fas fa-star"
+                            style="color: #FFD700;"></i> 4.9 (420 Trips)</div>
+                </div>
+
+                <div class="eta-box">
+                    <div>
+                        <span>Estimated Arrival</span>
+                        <strong id="eta-timer" style="display: block;">-- Min</strong>
+                    </div>
+                    <div style="text-align: right;">
+                        <i class="fas fa-route"
+                            style="font-size: 1.5rem; color: rgba(255,255,255,0.2); display: block; margin-bottom: 5px;"></i>
+                        <span class="distance" id="distance-display">-- km away</span>
+                    </div>
+                </div>
+
+                <div class="driver-actions">
+                    <button class="action-btn btn-call" onclick="alert('Calling Driver Suresh: +91 98765 43210')"><i
+                            class="fas fa-phone"></i> Call</button>
+                    <button class="action-btn btn-msg" onclick="alert('Opening secure messaging channel...')"><i
+                            class="fas fa-comment"></i> Message</button>
+                </div>
+            </div>
+
+            <!-- WhatsApp Share Section -->
+            <div style="background: rgba(37,211,102,0.12); border: 1px solid rgba(37,211,102,0.25); border-radius: 10px; padding: 16px; margin: 20px 0; text-align: center; display: flex; flex-direction: column; gap: 12px; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15);">
+                <div style="display: flex; align-items: center; gap: 8px; color: #25D366; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.1rem;"></i> Send to Phone via WhatsApp
+                </div>
+                <p style="font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.4;">Get this tracking page URL on your mobile phone to track while you're on the go.</p>
+                <button onclick="shareTrackingLink()" style="background: #25D366; color: #111; border: none; padding: 10px 16px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 8px; width: 100%; justify-content: center; font-family: 'Outfit', sans-serif; transition: transform 0.2s;">
+                    <i class="fab fa-whatsapp"></i> Share Link
+                </button>
+            </div>
+
+            <div class="timeline" id="timeline">
+                <div class="timeline-progress" id="timeline-progress"></div>
+
+                <div class="timeline-step active" id="step-1">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <h4>Booking Received</h4>
+                        <p>We are assigning the nearest available unit.</p>
+                        <div class="step-time" id="time-1"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step-2">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <h4>Ambulance Dispatched</h4>
+                        <p>Unit has been deployed and is moving towards you.</p>
+                        <div class="step-time" id="time-2"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step-3">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <h4>En Route</h4>
+                        <p>Ambulance is navigating traffic to reach your location.</p>
+                        <div class="step-time" id="time-3"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step-4">
+                    <div class="step-dot"></div>
+                    <div class="step-content">
+                        <h4>Arrived at Location</h4>
+                        <p>Please meet the medical team outside.</p>
+                        <div class="step-time" id="time-4"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Panel / Map -->
+        <div class="map-panel">
+            <div class="map-overlay" id="busy-banner" style="display:none; background:rgba(255,107,0,0.9); top:24px;">
+                <i class="fas fa-exclamation-triangle"></i> Ambulance completing prior drop-off
+            </div>
+            <div class="map-overlay" style="top: 70px;" id="gps-status-badge">
+                <span class="live-dot"></span> LIVE GPS TRACKING
+            </div>
+            <!-- Leaflet Map Container -->
+            <div id="map"></div>
+        </div>
+
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        let map;
+        let ambMarker;
+        let destMarker;
+        let routePolyline;
+        let pollingInterval;
+        let isArrived = false;
+        let bookingStartTime = null;
+
+        const BHATIA_LAT = 18.9657;
+        const BHATIA_LNG = 72.8132;
+
+        function initMap() {
+            map = L.map('map', {
+                zoomControl: false,
+                dragging: true,
+                scrollWheelZoom: true
+            }).setView([BHATIA_LAT, BHATIA_LNG], 15);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+
+            const ambIcon = L.divIcon({
+                className: 'amb-div-icon',
+                html: `<div class="amb-marker-container"><div class="amb-marker-pulse"></div><i class="fas fa-ambulance"></i></div>`,
+                iconSize: [44, 44],
+                iconAnchor: [22, 22]
+            });
+            ambMarker = L.marker([BHATIA_LAT, BHATIA_LNG], { icon: ambIcon }).addTo(map);
+        }
+
+        async function fetchBookingInfo(id) {
+            try {
+                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const res = await fetch(`${apiHost}/api/bookings/${id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    document.getElementById('patient-name').textContent = `Patient: ${data.name} | ${data.phone}`;
+                    document.getElementById('service-type').textContent = data.service;
+                    bookingStartTime = new Date(data.created_at + 'Z');
+                    document.getElementById('time-1').textContent = formatTime(bookingStartTime);
+                    document.getElementById('driver-card').style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        const formatTime = (d) => d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+        async function pollLocation(id) {
+            if (isArrived) return;
+            try {
+                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`);
+                const res = await fetch(`${apiHost}/api/bookings/${id}/location`);
+                if (res.ok) {
+                    const data = await res.json();
+
+                    // Update or create Destination Marker dynamically
+                    if (data.destLat && data.destLng) {
+                        const destLatLng = [data.destLat, data.destLng];
+                        if (!destMarker) {
+                            const destIcon = L.divIcon({
+                                className: 'custom-div-icon',
+                                html: `<div style="background:#25D366; width:20px; height:20px; border-radius:50%; border:3px solid #fff; box-shadow:0 0 10px rgba(0,0,0,0.5);"></div>`,
+                                iconSize: [20, 20],
+                                iconAnchor: [10, 10]
+                            });
+                            destMarker = L.marker(destLatLng, { icon: destIcon }).addTo(map);
+                        } else {
+                            destMarker.setLatLng(destLatLng);
+                        }
+                    }
+
+                    // Draw route if not drawn yet
+                    if (data.fullRoute && data.fullRoute.length > 0 && !routePolyline) {
+                        // Convert [lng, lat] to [lat, lng]
+                        const latLngs = data.fullRoute.map(p => [p[1], p[0]]);
+                        routePolyline = L.polyline(latLngs, {
+                            color: '#D90429',
+                            weight: 5,
+                            opacity: 0.7,
+                            lineJoin: 'round',
+                            dashArray: '10, 15'
+                        }).addTo(map);
+                        map.fitBounds(routePolyline.getBounds(), { padding: [50, 50] });
+                    }
+
+                    // Update Map Marker
+                    const newLatLng = [data.lat, data.lng];
+                    ambMarker.setLatLng(newLatLng);
+
+                    // Pan smoothly if route is already drawn and we are following
+                    if (routePolyline) {
+                        map.panTo(newLatLng, { animate: true, duration: 1 });
+                    }
+
+                    // Live GPS Status Badge
+                    const badge = document.getElementById('gps-status-badge');
+                    if (badge) {
+                        if (data.isLive) {
+                            badge.innerHTML = `<span class="live-dot" style="background:#25D366; box-shadow:0 0 10px #25D366; animation:none;"></span> LIVE DRIVER GPS ACTIVE`;
+                            badge.style.borderColor = 'rgba(37,211,102,0.4)';
+                        } else {
+                            badge.innerHTML = `<span class="live-dot" style="background:#FFA500; box-shadow:0 0 10px #FFA500; animation:none;"></span> SIMULATED ROUTE TRACKING`;
+                            badge.style.borderColor = 'rgba(255,165,0,0.4)';
+                        }
+                    }
+
+                    // Busy Banner
+                    if (data.isBusy) {
+                        document.getElementById('busy-banner').style.display = 'flex';
+                    }
+
+                    // Operator Message Update
+                    const msgBox = document.getElementById('operator-msg-box');
+                    const msgText = document.getElementById('operator-msg-text');
+                    if (data.operatorMessage) {
+                        msgText.textContent = data.operatorMessage;
+                        msgBox.style.display = 'block';
+                    } else {
+                        msgBox.style.display = 'none';
+                    }
+
+                    // Update UI
+                    document.getElementById('distance-display').textContent = `${data.distance} km away`;
+                    document.getElementById('eta-timer').textContent = data.eta === 'Arrived' ? 'Arrived' : `${data.eta} Min`;
+
+                    updateTimeline(data.progress, bookingStartTime || new Date(data.createdAt));
+
+                    if (data.progress >= 1) {
+                        isArrived = true;
+                        clearInterval(pollingInterval);
+                        finishTracking();
+                    }
+                }
+            } catch (err) {
+                console.error("Location polling error:", err);
+            }
+        }
+
+        function updateTimeline(ratio, startTime) {
+            const bar = document.getElementById('timeline-progress');
+            if (ratio < 0.1) {
+                bar.style.height = '10%';
+            }
+            else if (ratio >= 0.1 && ratio < 0.4 && !document.getElementById('step-2').classList.contains('active')) {
+                document.getElementById('step-1').classList.replace('active', 'completed');
+                document.getElementById('step-2').classList.add('active');
+                bar.style.height = '33%';
+                const t = new Date(startTime.getTime() + 1 * 60000);
+                document.getElementById('time-2').textContent = formatTime(t);
+            }
+            else if (ratio >= 0.4 && ratio < 0.95 && !document.getElementById('step-3').classList.contains('active')) {
+                document.getElementById('step-2').classList.replace('active', 'completed');
+                document.getElementById('step-3').classList.add('active');
+                bar.style.height = '66%';
+                const t = new Date(startTime.getTime() + 5 * 60000);
+                document.getElementById('time-3').textContent = formatTime(t);
+            }
+        }
+
+        function shareTrackingLink() {
+            const url = window.location.href;
+            const patientName = document.getElementById('patient-name').textContent.replace('Patient: ', '');
+            const serviceType = document.getElementById('service-type').textContent;
+            const text = `Dear ${patientName}, your booking for ${serviceType} is confirmed. Track your ambulance live: ${url}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function finishTracking() {
+            const bar = document.getElementById('timeline-progress');
+            bar.style.height = '100%';
+            document.getElementById('step-3').classList.replace('active', 'completed');
+            document.getElementById('step-4').classList.add('completed', 'active');
+
+            document.getElementById('time-4').textContent = formatTime(new Date());
+            document.getElementById('eta-timer').textContent = "Arrived";
+            document.getElementById('eta-timer').style.color = "var(--primary)";
+
+            setTimeout(() => alert("Ambulance has arrived at your location. Please step outside."), 800);
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            initMap();
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                await fetchBookingInfo(id);
+                // Poll immediately, then every 2 seconds
+                pollLocation(id);
+                pollingInterval = setInterval(() => pollLocation(id), 2000);
+            } else {
+                document.getElementById('patient-name').textContent = "Demo Mode: No booking ID provided.";
+                document.getElementById('service-type').textContent = "Demo Service";
+            }
+        });
+    </script>
+</body>
+
+</html>

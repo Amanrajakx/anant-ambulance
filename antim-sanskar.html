@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antim Sanskar | Anant Ambulance — Dignified Farewell Services</title>
+    <meta name="description" content="Respectful and compassionate Antim Sanskar services in Mumbai. Funeral transportation, ritual management, and family support 24/7.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --cream: #F5F0E8;
+            --warm-white: #FAF8F4;
+            --gold: #C9A84C;
+            --gold-light: #E8C97A;
+            --gold-muted: rgba(201,168,76,0.2);
+            --brown: #6B4E2A;
+            --text: #2C2416;
+            --muted: #7A6E5E;
+            --divider: rgba(201,168,76,0.25);
+            --dark: #1A150D;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Jost', sans-serif; background: var(--warm-white); color: var(--text); overflow-x: hidden; }
+        body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 50px; display: flex; justify-content: space-between; align-items: center; background: rgba(250,248,244,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--divider); }
+        .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 600; color: var(--brown); text-decoration: none; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--gold); }
+        .nav-back { display: flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-size: 0.85rem; letter-spacing: 1px; transition: color 0.2s; }
+        .nav-back:hover { color: var(--gold); }
+        .hero { position: relative; z-index: 1; min-height: 100vh; display: flex; align-items: center; background: var(--dark); overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 50%; left: 50%; width: 700px; height: 700px; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(201,168,76,0.08); animation: breathe 8s ease-in-out infinite; }
+        .hero::after { content: ''; position: absolute; top: 50%; left: 50%; width: 500px; height: 500px; transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(201,168,76,0.12); animation: breathe 8s ease-in-out infinite 0.5s; }
+        @keyframes breathe { 0%,100% { transform: translate(-50%,-50%) scale(1); opacity: 0.8; } 50% { transform: translate(-50%,-50%) scale(1.04); opacity: 1; } }
+        .hero-inner { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 160px 50px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .om-symbol { font-size: 3rem; color: var(--gold); display: block; margin-bottom: 20px; opacity: 0.7; animation: fadeGlow 4s ease-in-out infinite; }
+        @keyframes fadeGlow { 0%,100% { opacity: 0.5; text-shadow: none; } 50% { opacity: 0.9; text-shadow: 0 0 30px rgba(201,168,76,0.4); } }
+        .eyebrow { font-size: 0.7rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: block; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem,6vw,5.5rem); font-weight: 500; line-height: 1.1; color: var(--cream); margin-bottom: 24px; }
+        h1 em { font-style: italic; color: var(--gold-light); }
+        .hero-desc { font-size: 1rem; color: rgba(245,240,232,0.6); line-height: 1.9; max-width: 400px; margin-bottom: 40px; }
+        .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+        .btn-primary { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; background: var(--gold); color: var(--dark); border-radius: 3px; text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; transition: background 0.3s, transform 0.2s; }
+        .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .btn-ghost { display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; border: 1px solid rgba(201,168,76,0.4); color: var(--cream); border-radius: 3px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: border-color 0.3s, background 0.3s; }
+        .btn-ghost:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+        .hero-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(201,168,76,0.15); border-radius: 4px; padding: 45px 40px; }
+        .hero-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 500; color: var(--cream); margin-bottom: 24px; }
+        .commitment-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+        .commitment-list li { display: flex; align-items: flex-start; gap: 14px; color: rgba(245,240,232,0.7); font-size: 0.9rem; line-height: 1.6; }
+        .commitment-list li i { color: var(--gold); margin-top: 2px; flex-shrink: 0; }
+        .divider-gold { height: 1px; background: var(--divider); margin: 30px 0; }
+        .contact-line { display: flex; flex-direction: column; gap: 8px; }
+        .contact-line span { font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,232,0.3); }
+        .contact-line a { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--gold); text-decoration: none; }
+        .contact-line a:hover { color: var(--gold-light); }
+        .page-body { position: relative; z-index: 1; }
+        .section { padding: 90px 50px; max-width: 1100px; margin: 0 auto; }
+        .section-eyebrow { font-size: 0.7rem; font-weight: 500; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+        .section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 500; line-height: 1.2; margin-bottom: 50px; color: var(--text); }
+        .section h2 em { font-style: italic; color: var(--brown); }
+        .services-bg { background: var(--cream); border-top: 1px solid var(--divider); border-bottom: 1px solid var(--divider); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 30px; }
+        .service-card { background: white; border: 1px solid var(--divider); border-radius: 4px; padding: 36px 30px; transition: box-shadow 0.3s, transform 0.3s; }
+        .service-card:hover { box-shadow: 0 12px 40px rgba(107,78,42,0.08); transform: translateY(-4px); }
+        .service-card .icon { font-size: 1.6rem; color: var(--gold); margin-bottom: 18px; }
+        .service-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; margin-bottom: 10px; color: var(--text); }
+        .service-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+        .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 0; counter-reset: steps; }
+        .process-step { counter-increment: steps; padding: 30px 24px; border-right: 1px solid var(--divider); position: relative; }
+        .process-step:last-child { border-right: none; }
+        .step-counter { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 400; color: rgba(201,168,76,0.2); line-height: 1; margin-bottom: 12px; }
+        .process-step h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; margin-bottom: 8px; }
+        .process-step p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+        .community-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 12px; }
+        .community-item { background: var(--cream); border: 1px solid var(--divider); border-radius: 4px; padding: 16px 20px; text-align: center; font-size: 0.88rem; color: var(--muted); transition: border-color 0.2s, color 0.2s; }
+        .community-item:hover { border-color: var(--gold); color: var(--brown); }
+        .testimonials-bg { background: var(--dark); }
+        .testimonials-section { max-width: 1100px; margin: 0 auto; padding: 90px 50px; }
+        .testimonials-section .section-eyebrow { color: var(--gold); }
+        .testimonials-section h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 500; color: var(--cream); margin-bottom: 50px; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 24px; }
+        .testimonial-card { background: rgba(245,240,232,0.04); border: 1px solid rgba(201,168,76,0.12); border-radius: 4px; padding: 34px 30px; }
+        .quote-mark { font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: rgba(201,168,76,0.2); line-height: 0.5; margin-bottom: 20px; }
+        .testimonial-card p { color: rgba(245,240,232,0.75); font-size: 0.92rem; line-height: 1.9; font-style: italic; }
+        .testimonial-card .author { display: flex; align-items: center; gap: 12px; margin-top: 24px; }
+        .author-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--gold-muted); border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--gold); }
+        .author strong { display: block; font-size: 0.88rem; color: var(--cream); font-style: normal; }
+        .author span { font-size: 0.78rem; color: rgba(245,240,232,0.4); font-style: normal; }
+        .form-bg { background: var(--cream); border-top: 1px solid var(--divider); }
+        .form-inner { max-width: 700px; margin: 0 auto; padding: 90px 50px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group.full { grid-column: 1 / -1; }
+        .form-group label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--muted); }
+        .form-group input,
+        .form-group select,
+        .form-group textarea { background: white; border: 1px solid var(--divider); border-radius: 3px; padding: 13px 16px; color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color: var(--gold); }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder { color: rgba(0,0,0,0.25); }
+        .btn-submit { width: 100%; padding: 16px; margin-top: 24px; background: var(--brown); color: white; border: none; border-radius: 3px; font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.3s, transform 0.2s; }
+        .btn-submit:hover { background: var(--dark); transform: translateY(-1px); }
+        footer { position: relative; z-index: 1; background: var(--dark); border-top: 1px solid rgba(201,168,76,0.15); padding: 36px 50px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        footer p { color: rgba(245,240,232,0.3); font-size: 0.82rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: rgba(245,240,232,0.4); text-decoration: none; font-size: 0.82rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--gold); }
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 54px; height: 54px; background: #25d366; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 20px rgba(37,211,102,0.35); z-index: 999; transition: transform 0.2s; }
+        .whatsapp-float:hover { transform: scale(1.1); color: white; }
+        .faq-list { max-width: 680px; }
+        .faq-item { border-bottom: 1px solid var(--divider); padding: 20px 0; }
+        .faq-q { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: var(--text); gap: 16px; }
+        .faq-q i { color: var(--gold); transition: transform 0.3s; flex-shrink: 0; }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, margin-top 0.3s; color: var(--muted); font-size: 0.92rem; line-height: 1.8; }
+        .faq-item.active .faq-a { max-height: 200px; margin-top: 12px; }
+        .faq-item.active .faq-q i { transform: rotate(180deg); }
+        
+        /* Fleet Showcase Styling */
+        .fleet-showcase { display: grid; grid-template-columns: 1.1fr 1fr; gap: 50px; align-items: center; background: white; border: 1px solid var(--divider); border-radius: 6px; padding: 45px; box-shadow: 0 12px 40px rgba(107,78,42,0.04); margin-bottom: 20px; }
+        .fleet-image { border-radius: 6px; overflow: hidden; border: 1px solid var(--divider); display: flex; align-items: center; justify-content: center; background: #fafafa; max-height: 600px; }
+        .fleet-image img { width: 100%; height: auto; display: block; object-fit: contain; }
+        .fleet-info h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 500; line-height: 1.2; margin-bottom: 20px; color: var(--text); }
+        .fleet-info h2 em { font-style: italic; color: var(--brown); }
+        .fleet-info p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+        .fleet-list { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 30px; }
+        .fleet-list li { display: flex; align-items: center; gap: 12px; font-size: 0.92rem; color: var(--text); }
+        .fleet-list li i { color: var(--gold); font-size: 1.1rem; width: 20px; text-align: center; }
+        .fleet-contact-box { background: var(--warm-white); border-left: 3px solid var(--gold); padding: 22px 26px; border-radius: 0 6px 6px 0; border: 1px solid var(--divider); border-left-width: 3px; }
+        .fleet-contact-box span { font-size: 0.72rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 8px; }
+        .fleet-phones { display: flex; flex-wrap: wrap; gap: 30px; }
+        .fleet-phone-item small { display: block; font-size: 0.78rem; color: var(--muted); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 1px; }
+        .fleet-phone-item a { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: var(--brown); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, transform 0.2s; }
+        .fleet-phone-item a:hover { color: var(--gold); transform: translateY(-1px); }
+
+        @media (max-width: 900px) { 
+            .hero-inner { grid-template-columns: 1fr; gap: 50px; } 
+            .hero-card { max-width: 500px; } 
+            .fleet-showcase { grid-template-columns: 1fr; gap: 30px; padding: 24px; }
+            .fleet-image { max-height: 500px; }
+        }
+        @media (max-width: 768px) { header { padding: 14px 20px; } .section { padding: 60px 24px; } .form-inner { padding: 60px 24px; } .form-grid { grid-template-columns: 1fr; } footer { flex-direction: column; text-align: center; padding: 28px 20px; } .process-steps { grid-template-columns: 1fr 1fr; } .process-step { border-right: none; border-bottom: 1px solid var(--divider); } .process-step:last-child { border-bottom: none; } .hero-inner { padding: 120px 24px 60px; } .testimonials-section { padding: 60px 24px; } }
+        @media (max-width: 480px) { h1 { font-size: 2.8rem; } .hero-cta { flex-direction: column; } .btn-primary, .btn-ghost { width: 100%; justify-content: center; } .process-steps { grid-template-columns: 1fr; } .fleet-phones { flex-direction: column; gap: 16px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="./index.html" class="logo"><i class="fas fa-dove"></i> Anant Ambulance</a>
+        <a href="./index.html" class="nav-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+    </header>
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-text">
+                <span class="om-symbol">ॐ</span>
+                <span class="eyebrow">Anant Ambulance — Antim Sanskar Seva</span>
+                <h1>A Farewell With<br><em>Dignity & Grace</em></h1>
+                <p class="hero-desc">In the most tender hours of loss, we stand beside your family — handling every detail with reverence, compassion, and care, so you can grieve in peace.</p>
+                <div class="hero-cta">
+                    <a href="tel:+919004805097" class="btn-primary"><i class="fas fa-phone"></i> Call Us Now</a>
+                    <a href="#book" class="btn-ghost"><i class="fas fa-calendar-check"></i> Pre-arrange Services</a>
+                </div>
+            </div>
+            <div class="hero-card">
+                <h3>Our Promise to Every Family</h3>
+                <ul class="commitment-list">
+                    <li><i class="fas fa-dove"></i> Full dignity and respect in all handling and transportation</li>
+                    <li><i class="fas fa-hands-praying"></i> Religious customs honored exactly as your family wishes</li>
+                    <li><i class="fas fa-moon"></i> Available 24 hours, 7 days — including festivals and holidays</li>
+                    <li><i class="fas fa-shield-alt"></i> Fully licensed and trained staff with years of experience</li>
+                    <li><i class="fas fa-heart"></i> Compassionate coordinators who support your family, not just logistics</li>
+                </ul>
+                <div class="divider-gold"></div>
+                <div class="contact-line">
+                    <span>Antim Sanskar Helpline</span>
+                    <a href="tel:+919004805097">+91 90048 05097</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="page-body">
+        <div class="services-bg">
+            <div class="section">
+                <span class="section-eyebrow">Our Services</span>
+                <h2>Everything Your Family<br><em>Needs in This Moment</em></h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-truck-moving"></i></div>
+                        <h3>Hearse Van & Transport</h3>
+                        <p>Dignified transportation of the departed from home, hospital, or mortuary to the cremation or burial ground — across Mumbai and beyond.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-hands-praying"></i></div>
+                        <h3>Ritual Management</h3>
+                        <p>We coordinate with priests, pandits, or religious coordinators as per your tradition — Hindu, Muslim, Christian, Jain, Sikh, Buddhist, and more.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-file-alt"></i></div>
+                        <h3>Documentation Assistance</h3>
+                        <p>Help with death certificates, cremation or burial permits, hospital release paperwork, and government documentation — handled promptly.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-plane"></i></div>
+                        <h3>Outstation & Home State</h3>
+                        <p>Embalming and transportation for departed to their hometown by road, rail freight coordination, or flight cargo arrangement across India.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-users"></i></div>
+                        <h3>Family Support Staff</h3>
+                        <p>Trained, gentle staff who stay with the family through the entire process — managing arrangements so loved ones can focus on one another.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="icon"><i class="fas fa-flower"></i></div>
+                        <h3>Flowers & Preparation</h3>
+                        <p>Dignified preparation and floral arrangement of the departed, done with full respect for religious and cultural traditions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Fleet Showcase Section -->
+        <div class="section" style="padding-top: 20px; padding-bottom: 40px;">
+            <div class="fleet-showcase">
+                <div class="fleet-image">
+                    <img src="./hearse_service.jpg" alt="Anant Hearse Ambulance with Ice Box">
+                </div>
+                <div class="fleet-info">
+                    <span class="section-eyebrow">Our Specialized Vehicle</span>
+                    <h2>Anant Hearse Van<br><em>with Heavy Duty Ice Box</em></h2>
+                    <p>To support your family in keeping your loved one preserved with full respect and care, our specialized Force Traveller ambulance is equipped with a heavy-duty cooling <strong>Ice Box (Freezer Box)</strong>. This vehicle is dedicated for dignified local transportation in Mumbai and long-distance outstation journeys across India.</p>
+                    <ul class="fleet-list">
+                        <li><i class="fas fa-snowflake"></i> <span><strong>Built-in Ice Box / Freezer Box</strong> for reliable body preservation</span></li>
+                        <li><i class="fas fa-wind"></i> <span><strong>Fully Air-Conditioned Cabin</strong> with comfortable family seating</span></li>
+                        <li><i class="fas fa-road"></i> <span><strong>Pan-India Long Distance Transfer</strong> capability with complete permits</span></li>
+                        <li><i class="fas fa-hands-praying"></i> <span><strong>Reverent, Compassionate Handling</strong> by our certified team</span></li>
+                    </ul>
+                    <div class="fleet-contact-box">
+                        <span>Direct Hearse & Icebox Dispatch</span>
+                        <div class="fleet-phones">
+                            <div class="fleet-phone-item">
+                                <small>Helpline 1 (24/7)</small>
+                                <a href="tel:+919820818626"><i class="fas fa-phone-alt"></i> 98208 18626</a>
+                            </div>
+                            <div class="fleet-phone-item">
+                                <small>Helpline 2 (24/7)</small>
+                                <a href="tel:+919004805097"><i class="fas fa-phone-alt"></i> 90048 05097</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <span class="section-eyebrow">How We Help</span>
+            <h2>Step by Step,<br><em>We Handle Everything</em></h2>
+            <div class="process-steps" style="border: 1px solid var(--divider); border-radius: 4px; overflow: hidden;">
+                <div class="process-step">
+                    <div class="step-counter">01</div>
+                    <h4>You Call Us</h4>
+                    <p>One call is all it takes. Our coordinator answers 24/7 and immediately begins making arrangements.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-counter">02</div>
+                    <h4>We Arrive</h4>
+                    <p>Our team reaches the hospital, home, or mortuary with the hearse van and support staff.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-counter">03</div>
+                    <h4>We Coordinate</h4>
+                    <p>Paperwork, rituals, priests, flower arrangements, and permissions — we manage it all.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-counter">04</div>
+                    <h4>Final Journey</h4>
+                    <p>We accompany the family through the final rites with full dignity and respect.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section" style="padding-top: 0;">
+            <span class="section-eyebrow">All Are Welcome</span>
+            <h2>We Serve All<br><em>Communities & Faiths</em></h2>
+            <div class="community-grid">
+                <div class="community-item"><i class="fas fa-om" style="color: var(--gold); margin-right: 6px;"></i> Hindu</div>
+                <div class="community-item"><i class="fas fa-star-and-crescent" style="color: var(--gold); margin-right: 6px;"></i> Muslim</div>
+                <div class="community-item"><i class="fas fa-cross" style="color: var(--gold); margin-right: 6px;"></i> Christian</div>
+                <div class="community-item"><i class="fas fa-dharmachakra" style="color: var(--gold); margin-right: 6px;"></i> Buddhist</div>
+                <div class="community-item"><i class="fas fa-star-of-david" style="color: var(--gold); margin-right: 6px;"></i> Jewish</div>
+                <div class="community-item"><i class="fas fa-fire" style="color: var(--gold); margin-right: 6px;"></i> Parsi / Zoroastrian</div>
+                <div class="community-item"><i class="fas fa-infinity" style="color: var(--gold); margin-right: 6px;"></i> Jain</div>
+                <div class="community-item"><i class="fas fa-khanda" style="color: var(--gold); margin-right: 6px;"></i> Sikh</div>
+            </div>
+        </div>
+        <div class="section services-bg" style="border-radius: 0;">
+            <div class="services-bg" style="margin: -90px -50px; padding: 90px 50px;">
+                <span class="section-eyebrow">Questions</span>
+                <h2>Families Often Ask</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-q">Do you provide services at night or on holidays? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-a">Yes. Our Antim Sanskar team operates 24 hours a day, 365 days a year — including all festivals and public holidays. Loss does not wait, and neither do we.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">Can you help transport the body to another state? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-a">Yes. We assist with embalming, documentation, and arrange transportation by road, rail, or cargo flight to any state in India. We handle all required permits.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">What is the cost of the Antim Sanskar service? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-a">Our Antim Sanskar packages start at ₹8,500 for Electric cremation and ₹10,000 for Traditional cremation, and vary based on services required, distance, and specific needs. We are fully transparent — no hidden charges.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">Can you arrange for a priest or pandit? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-a">Yes. We have a network of trusted priests and religious coordinators across communities who we can arrange on your behalf, based on your faith and customs.</div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-q">How do I contact you at the time of need? <i class="fas fa-chevron-down"></i></div>
+                        <div class="faq-a">Call us on +91 90048 05097 or WhatsApp us on +91 98208 18626. Our coordinator will answer immediately and guide you through every next step with calm and care.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonials-bg">
+            <div class="testimonials-section">
+                <span class="section-eyebrow">Families We Have Supported</span>
+                <h2>Words from Those<br>We Have Served</h2>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card">
+                        <div class="quote-mark">"</div>
+                        <p>They arrived within 30 minutes at midnight. The staff was so gentle and respectful with our father — it gave our family immense peace during the most painful night of our lives.</p>
+                        <div class="author">
+                            <div class="author-avatar">A</div>
+                            <div>
+                                <strong>Anjali Sharma</strong>
+                                <span>Dadar, Mumbai</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-mark">"</div>
+                        <p>We needed to transport my mother's body from Mumbai to our village in UP. Anant's team handled every document, every permit, and kept us informed throughout. Truly a blessing.</p>
+                        <div class="author">
+                            <div class="author-avatar">R</div>
+                            <div>
+                                <strong>Ramesh Gupta</strong>
+                                <span>Bandra, Mumbai</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-mark">"</div>
+                        <p>As a Christian family, we were worried whether the team would understand our customs. They did — respectfully and completely. We are deeply grateful for their sensitivity.</p>
+                        <div class="author">
+                            <div class="author-avatar">M</div>
+                            <div>
+                                <strong>Maria D'Souza</strong>
+                                <span>Vasai, Mumbai</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-bg" id="book">
+            <div class="form-inner">
+                <span class="section-eyebrow">Pre-Arrange</span>
+                <h2 style="font-family:'Cormorant Garamond',serif; font-weight:500; font-size: 2.4rem; margin-bottom: 10px;">Request Our Assistance</h2>
+                <p style="color: var(--muted); font-size: 0.9rem; line-height: 1.8;">Fill this form to pre-arrange services or request a callback. For immediate assistance, please call us directly.</p>
+                <form id="antim-form">
+                    <div class="form-grid">
+                        <div class="form-group"><label>Your Name</label><input type="text" name="name" placeholder="Contact person's name" required></div>
+                        <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required></div>
+                        <div class="form-group"><label>Email Address (Optional)</label><input type="email" name="email" placeholder="customer@example.com"></div>
+                        <div class="form-group"><label>Service Required</label><select name="service"><option value="Antim Sanskar Service">Full Antim Sanskar Package</option><option value="Hearse Transport Only">Hearse Van / Transport Only</option><option value="Outstation Transport">Outstation / Home State Transport</option><option value="Documentation Help">Documentation Assistance Only</option></select></div>
+                        <div class="form-group"><label>Community / Religion</label><input type="text" name="religion" placeholder="e.g. Hindu, Muslim, Christian…"></div>
+                        <div class="form-group full">
+                            <label>Location & Additional Details</label>
+                            <div style="display:flex; gap: 10px; margin-bottom:10px;">
+                                <button type="button" id="btn-locate" style="padding:8px 12px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.3); color:var(--text); border-radius:4px; cursor:pointer;">
+                                    <i class="fas fa-location-arrow"></i> Use Current GPS Location
+                                </button>
+                                <span id="loc-status" style="align-self:center; color:var(--primary); font-size:0.9rem;"></span>
+                            </div>
+                            <textarea name="message" rows="4" placeholder="Current location of the departed, destination, any specific requirements or customs to observe…"></textarea>
+                            <input type="hidden" name="lat" id="user-lat">
+                            <input type="hidden" name="lng" id="user-lng">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Request</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; 2025 Anant Ambulance. Serving with compassion.</p>
+        <div class="footer-links"><a href="./index.html">Home</a><a href="./emergency.html">Emergency Ambulance</a><a href="/index.html#contact">Contact</a></div>
+    </footer>
+    <a href="https://wa.me/919820818626?text=I%20need%20Antim%20Sanskar%20assistance." class="whatsapp-float" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <script>
+    <!-- Booking Success Modal -->
+    <div id="success-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+        <div style="background:#161920; border:1px solid rgba(255,255,255,0.1); border-radius:16px; width:100%; max-width:480px; overflow:hidden; box-shadow:0 15px 50px rgba(0,0,0,0.6); text-align:center; padding:30px;">
+            <div style="width:72px; height:72px; background:rgba(37,211,102,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px; color:#25D366; font-size:2.5rem;">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            
+            <h2 style="font-family:'Barlow Condensed',sans-serif; text-transform:uppercase; font-size:1.8rem; font-weight:800; letter-spacing:1px; margin-bottom:8px; color:#fff;">Booking Confirmed!</h2>
+            <p style="color:#A0A5B5; font-size:0.95rem; line-height:1.5; margin-bottom:24px;">Your request has been registered. We are deploying your vehicle right away.</p>
+            
+            <div style="background:rgba(0,0,0,0.2); border-radius:8px; padding:15px; text-align:left; font-size:0.85rem; color:#8C92A4; margin-bottom:24px; display:flex; flex-direction:column; gap:8px; border:1px solid rgba(255,255,255,0.05);">
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Booking ID:</span> <strong id="success-booking-id" style="color:#fff;">#--</strong></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Patient Name:</span> <strong id="success-patient-name" style="color:#fff;">--</strong></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#A0A5B5;">Phone:</span> <strong id="success-phone" style="color:#fff;">--</strong></div>
+            </div>
+            
+            <div style="display:flex; flex-direction:column; gap:12px;">
+                <button onclick="window.location.href='./index.html'" style="background:#C9A84C; color:#1A150D; border:none; padding:14px 20px; border-radius:8px; font-family:'Outfit',sans-serif; font-weight:700; font-size:0.95rem; cursor:pointer; width:100%; transition:transform 0.2s;">
+                    OK, Back to Home
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-q').forEach(q => { q.addEventListener('click', () => { const item = q.parentElement; document.querySelectorAll('.faq-item.active').forEach(o => { if (o !== item) o.classList.remove('active'); }); item.classList.toggle('active'); }); });
+        
+        const btnLocate = document.getElementById('btn-locate');
+        if (btnLocate) {
+            btnLocate.addEventListener('click', () => {
+                const status = document.getElementById('loc-status');
+                status.textContent = 'Locating...';
+                if (!navigator.geolocation) {
+                    status.textContent = 'Geolocation is not supported by your browser';
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition((position) => {
+                    document.getElementById('user-lat').value = position.coords.latitude;
+                    document.getElementById('user-lng').value = position.coords.longitude;
+                    status.textContent = 'Location secured!';
+                }, () => {
+                    status.textContent = 'Unable to retrieve your location';
+                });
+            });
+        }
+
+        document.getElementById('antim-form')?.addEventListener('submit', async (e) => { 
+            e.preventDefault(); 
+            const btn = e.target.querySelector('.btn-submit'); 
+            const orig = btn.textContent; 
+            const data = Object.fromEntries(new FormData(e.target).entries()); 
+            btn.textContent = 'Sending…'; btn.disabled = true; 
+            try { 
+                const apiHost = window.location.protocol === 'file:' ? 'http://localhost:3001' : (window.location.port === '3001' ? '' : `${window.location.protocol}//${window.location.hostname}:3001`); 
+                const serviceType = data.service || 'Antim Sanskar Seva';
+                const res = await fetch(`${apiHost}/api/bookings`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, service: serviceType }) }); 
+                if (res.ok) { 
+                    const result = await res.json(); 
+                    
+                    // Populate success modal
+                    document.getElementById('success-booking-id').textContent = `#${result.id}`;
+                    document.getElementById('success-patient-name').textContent = data.name;
+                    document.getElementById('success-phone').textContent = data.phone;
+                    
+                    // Tracking option removed
+                    
+                    // Show modal
+                    document.getElementById('success-modal').style.display = 'flex';
+                } else { 
+                    alert('Server error: ' + res.status); 
+                } 
+            } catch (err) { 
+                alert('Connection error: ' + err.message); 
+            } finally { 
+                btn.textContent = orig; btn.disabled = false; 
+            } 
+        });
+    </script>
+</body>
+</html>

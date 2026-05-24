@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Service | Anant Ambulance Booking Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --red: #D90429;
+            --red-glow: rgba(217, 4, 41, 0.4);
+            --orange: #FF6B00;
+            --black: #08080A;
+            --dark: #0F1115;
+            --surface: #161920;
+            --border: rgba(255, 255, 255, 0.08);
+            
+            --gold: #C9A84C;
+            --gold-light: #E8C97A;
+            --cream: #FAF8F4;
+            --brown: #4A351C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--black);
+            color: #F0F0F0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient background glow */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+            radial-gradient(circle at 15% 25%, rgba(217, 4, 41, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 85% 75%, rgba(201, 168, 76, 0.08) 0%, transparent 45%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 24px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(8, 8, 10, 0.8);
+            backdrop-filter: blur(12px);
+        }
+
+        .logo {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #FFF;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--orange);
+        }
+
+        .btn-back {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #A0A5B5;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .btn-back:hover {
+            color: #FFF;
+        }
+
+        /* Portal Wrapper */
+        .portal-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 60px 40px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .portal-header {
+            text-align: center;
+            margin-bottom: 50px;
+            max-width: 600px;
+        }
+
+        .portal-header h1 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #FFF 60%, #A0A5B5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .portal-header p {
+            font-size: 1.05rem;
+            color: #8C92A4;
+            line-height: 1.6;
+        }
+
+        /* Split Cards Grid */
+        .split-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .service-option-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        /* Emergency Option Details */
+        .service-option-card.emergency-option {
+            box-shadow: 0 4px 30px rgba(217, 4, 41, 0.02);
+        }
+
+        .service-option-card.emergency-option:hover {
+            border-color: rgba(217, 4, 41, 0.4);
+            box-shadow: 0 10px 40px rgba(217, 4, 41, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .service-option-card.emergency-option::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(217, 4, 41, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Antim Option Details */
+        .service-option-card.antim-option {
+            box-shadow: 0 4px 30px rgba(201, 168, 76, 0.02);
+        }
+
+        .service-option-card.antim-option:hover {
+            border-color: rgba(201, 168, 76, 0.4);
+            box-shadow: 0 10px 40px rgba(201, 168, 76, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .service-option-card.antim-option::before {
+            content: '';
+            position: absolute;
+            top: -50px; right: -50px;
+            width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Content elements */
+        .card-top {
+            margin-bottom: 40px;
+        }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-bottom: 28px;
+            transition: transform 0.3s;
+        }
+
+        .emergency-option:hover .icon-box {
+            transform: scale(1.1) rotate(-5deg);
+        }
+        
+        .antim-option:hover .icon-box {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .emergency-option .icon-box {
+            background: rgba(217, 4, 41, 0.12);
+            color: var(--red);
+            border: 1px solid rgba(217, 4, 41, 0.25);
+            box-shadow: 0 0 20px rgba(217, 4, 41, 0.1);
+        }
+
+        .antim-option .icon-box {
+            background: rgba(201, 168, 76, 0.12);
+            color: var(--gold);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
+        }
+
+        .card-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .emergency-option .card-title {
+            color: #FF5A60;
+        }
+
+        .antim-option .card-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .card-desc {
+            color: #9AA0B0;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: #C0C5D4;
+        }
+
+        .features-list li i {
+            font-size: 0.8rem;
+        }
+
+        .emergency-option .features-list li i {
+            color: var(--red);
+        }
+
+        .antim-option .features-list li i {
+            color: var(--gold);
+        }
+
+        /* Buttons inside cards */
+        .card-action-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .emergency-option .card-action-btn {
+            background: var(--red);
+            color: #FFF;
+            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.3);
+        }
+
+        .emergency-option:hover .card-action-btn {
+            background: #F00B36;
+            box-shadow: 0 6px 20px rgba(217, 4, 41, 0.45);
+        }
+
+        .antim-option .card-action-btn {
+            background: var(--gold);
+            color: var(--brown);
+            box-shadow: 0 4px 15px rgba(201, 168, 76, 0.3);
+        }
+
+        .antim-option:hover .card-action-btn {
+            background: var(--gold-light);
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.45);
+        }
+
+        /* Support Strip */
+        .support-strip {
+            margin-top: 60px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 18px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+        }
+
+        .support-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            color: #8C92A4;
+        }
+
+        .support-item i {
+            color: var(--orange);
+        }
+
+        .support-item a {
+            color: #FFF;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 820px) {
+            .split-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .portal-container {
+                padding: 40px 20px 60px;
+            }
+            header {
+                padding: 20px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <a href="./index.html" class="logo"><i class="fas fa-ambulance"></i> ANANT <span>AMBULANCE</span></a>
+        <a href="./index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Homepage</a>
+    </header>
+
+    <!-- Main Portal Container -->
+    <div class="portal-container">
+        
+        <div class="portal-header">
+            <h1>Select Booking Service</h1>
+            <p>Please choose the booking type you require to proceed. We provide prompt emergency solutions as well as respectful funeral arrangements 24/7.</p>
+        </div>
+
+        <!-- Split Grid of Cards -->
+        <div class="split-grid">
+            
+            <!-- Card 1: Emergency Booking -->
+            <div class="service-option-card emergency-option" onclick="location.href='/emergency.html'">
+                <div class="card-top">
+                    <div class="icon-box">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h2 class="card-title">Emergency Booking</h2>
+                    <p class="card-desc">For urgent, immediate life-support transport, hospital transfers, and specialized critical care requests.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-bolt"></i> 10-20 Minutes Rapid City Response</li>
+                        <li><i class="fas fa-check-circle"></i> Basic Life Support & ICU Ventilator</li>
+                        <li><i class="fas fa-check-circle"></i> On-board Specialist Paramedics</li>
+                    </ul>
+                </div>
+                <a href="./emergency.html" class="card-action-btn">
+                    <span>Emergency Booking</span> &nbsp;<i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <!-- Card 2: Antim Sanskar Booking -->
+            <div class="service-option-card antim-option" onclick="location.href='/antim-sanskar.html'">
+                <div class="card-top">
+                    <div class="icon-box">
+                        <i class="fas fa-dove"></i>
+                    </div>
+                    <h2 class="card-title">Antim Sanskar Seva</h2>
+                    <p class="card-desc">For compassionate funeral transport, ritual arrangement, documentation assistance, and dignified family support.</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-hands-praying"></i> Respectful Multi-Faith Customs</li>
+                        <li><i class="fas fa-check-circle"></i> Hearse Van & National Transport</li>
+                        <li><i class="fas fa-check-circle"></i> Complete Ceremony Coordination</li>
+                    </ul>
+                </div>
+                <a href="./antim-sanskar.html" class="card-action-btn">
+                    <span>Antim Sanskar Booking</span> &nbsp;<i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Support Strip -->
+        <div class="support-strip">
+            <div class="support-item">
+                <i class="fas fa-clock"></i>
+                <span>Available 24 Hours / 7 Days</span>
+            </div>
+            <div class="support-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>24/7 Helpline: <a href="tel:+919004805097">+91 90048 05097</a></span>
+            </div>
+            <div class="support-item">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp support available</span>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
