@@ -181,20 +181,30 @@ const sendSMS = async (phone, name, service, id) => {
 };
 
 const sendBookingEmails = async (customerEmail, name, phone, service, message, id) => {
-    const resendApiKey = process.env.RESEND_API_KEY;
+    const brevoSmtpKey = process.env.BREVO_SMTP_KEY;
     const adminEmail = process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
 
     console.log(`\n====================================`);
-    console.log(`✉️ RESEND EMAIL NOTIFICATION LOG:`);
+    console.log(`✉️ BREVO EMAIL NOTIFICATION LOG:`);
     console.log(`Booking ID: #${id}`);
     console.log(`Admin Recipient: ${adminEmail}`);
     console.log(`Customer Recipient: ${customerEmail || 'Not provided'}`);
 
-    if (!resendApiKey) {
-        console.log(`🟡 Real Emails NOT sent: Set RESEND_API_KEY env variable in Render to send real emails.`);
+    if (!brevoSmtpKey) {
+        console.log(`🟡 Real Emails NOT sent: Set BREVO_SMTP_KEY env variable in Render to send real emails.`);
         console.log(`====================================\n`);
         return;
     }
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp-relay.brevo.com',
+        port: 587,
+        secure: false,
+        auth: {
+            user: adminEmail,
+            pass: brevoSmtpKey
+        }
+    });
 
     // 1. Send Alert to Admin
     const adminSubject = `🚨 NEW BOOKING REQUEST: #${id} - ${service}`;
@@ -224,28 +234,17 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
         </div>
     `;
 
+    // 1. Send Alert to Admin
     try {
-        const responseAdmin = await fetch('https://api.resend.com/emails', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${resendApiKey}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                from: 'Anant Ambulance <onboarding@resend.dev>',
-                to: adminEmail,
-                subject: adminSubject,
-                html: adminHtml
-            })
+        await transporter.sendMail({
+            from: `"Anant Ambulance" <${adminEmail}>`,
+            to: adminEmail,
+            subject: adminSubject,
+            html: adminHtml
         });
-        const resAdminJson = await responseAdmin.json();
-        if (responseAdmin.ok) {
-            console.log(`🟢 Real Resend Email alert sent to Admin (${adminEmail})! ID: ${resAdminJson.id}`);
-        } else {
-            console.error(`❌ Resend Admin email failed:`, resAdminJson);
-        }
+        console.log(`🟢 Brevo Email alert sent to Admin (${adminEmail})!`);
     } catch (e) {
-        console.error("Resend Admin email error:", e);
+        console.error("Brevo Admin email error:", e.message);
     }
 
     // 2. Send Confirmation to Customer
@@ -276,27 +275,15 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
         `;
 
         try {
-            const responseCustomer = await fetch('https://api.resend.com/emails', {
-                method: 'POST',
-                headers: {
-                    'Authorization': `Bearer ${resendApiKey}`,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    from: 'Anant Ambulance <onboarding@resend.dev>',
-                    to: customerEmail,
-                    subject: customerSubject,
-                    html: customerHtml
-                })
+            await transporter.sendMail({
+                from: `"Anant Ambulance" <${adminEmail}>`,
+                to: customerEmail,
+                subject: customerSubject,
+                html: customerHtml
             });
-            const resCustJson = await responseCustomer.json();
-            if (responseCustomer.ok) {
-                console.log(`🟢 Real Resend Email confirmation sent to Customer (${customerEmail})! ID: ${resCustJson.id}`);
-            } else {
-                console.error(`❌ Resend Customer email failed (if using onboarding@resend.dev, the destination email address must be the one registered with Resend):`, resCustJson);
-            }
+            console.log(`🟢 Brevo Email confirmation sent to Customer (${customerEmail})!`);
         } catch (e) {
-            console.error("Resend Customer email error:", e);
+            console.error("Brevo Customer email error:", e.message);
         }
     }
     console.log(`====================================\n`);
