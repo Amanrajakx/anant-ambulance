@@ -181,44 +181,42 @@ const sendSMS = async (phone, name, service, id) => {
 };
 
 const sendBookingEmails = async (customerEmail, name, phone, service, message, id) => {
-    const brevoSmtpKey = process.env.BREVO_SMTP_KEY;
-    const brevoSmtpUser = process.env.BREVO_SMTP_USER || process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
+    const brevoApiKey = process.env.BREVO_API_KEY;
+    const senderEmail = process.env.BREVO_SMTP_USER || 'amanrajak657@gmail.com';
     const adminEmail = process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
 
     console.log(`\n====================================`);
-    console.log(`✉️ BREVO EMAIL NOTIFICATION LOG:`);
+    console.log(`✉️ BREVO API EMAIL LOG:`);
     console.log(`Booking ID: #${id}`);
-    console.log(`Brevo Login User: ${brevoSmtpUser}`);
+    console.log(`Sender: ${senderEmail}`);
     console.log(`Admin Recipient: ${adminEmail}`);
     console.log(`Customer Recipient: ${customerEmail || 'Not provided'}`);
 
-    if (!brevoSmtpKey) {
-        console.log(`🟡 Real Emails NOT sent: Set BREVO_SMTP_KEY env variable in Render to send real emails.`);
+    if (!brevoApiKey) {
+        console.log(`🟡 Real Emails NOT sent: Set BREVO_API_KEY env variable in Render.`);
         console.log(`====================================\n`);
         return;
     }
 
-    const transporter = nodemailer.createTransport({
-        host: 'smtp-relay.brevo.com',
-        port: 465,
-        secure: true,
-        auth: {
-            user: brevoSmtpUser,
-            pass: brevoSmtpKey
-        },
-        connectionTimeout: 10000,
-        socketTimeout: 10000
-    });
-
-    // Verify SMTP connection before sending
-    try {
-        await transporter.verify();
-        console.log('✅ Brevo SMTP connection verified!');
-    } catch (verifyErr) {
-        console.error('❌ Brevo SMTP connection FAILED:', verifyErr.message);
-        console.log(`====================================\n`);
-        return;
-    }
+    const sendEmail = async (to, subject, htmlContent) => {
+        const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+            method: 'POST',
+            headers: {
+                'accept': 'application/json',
+                'api-key': brevoApiKey,
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                sender: { name: 'Anant Ambulance', email: senderEmail },
+                to: [{ email: to }],
+                subject,
+                htmlContent
+            })
+        });
+        const json = await res.json();
+        if (!res.ok) throw new Error(JSON.stringify(json));
+        return json;
+    };
 
     // 1. Send Alert to Admin
     const adminSubject = `🚨 NEW BOOKING REQUEST: #${id} - ${service}`;
@@ -228,9 +226,7 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
                 <h2 style="font-size: 1.8rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
                 <p style="color: #ea580c; font-weight: bold; font-size: 1.1rem; margin: 5px 0 0 0;">🚨 NEW BOOKING ALERT 🚨</p>
             </div>
-            
             <h3 style="font-size: 1.3rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Details</h3>
-            
             <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 0.95rem; line-height: 1.8;">
                 <div><span style="color: #8C92A4;">Booking ID:</span> <strong style="color: #fff;">#${id}</strong></div>
                 <div><span style="color: #8C92A4;">Patient Name:</span> <strong style="color: #fff;">${name}</strong></div>
@@ -239,7 +235,6 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
                 <div><span style="color: #8C92A4;">Service Type:</span> <strong style="color: #fff;">${service}</strong></div>
                 <div><span style="color: #8C92A4;">Message/Address:</span> <p style="color: #fff; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 4px; margin: 5px 0 0 0;">${message || 'None'}</p></div>
             </div>
-            
             <div style="text-align: center; margin: 30px 0;">
                 <a href="https://anant-ambulance.onrender.com/admin.html" style="background: #22c55e; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; display: inline-block; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;">
                     💻 Open Admin Dashboard
@@ -248,17 +243,11 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
         </div>
     `;
 
-    // 1. Send Alert to Admin
     try {
-        await transporter.sendMail({
-            from: `"Anant Ambulance" <${brevoSmtpUser}>`,
-            to: adminEmail,
-            subject: adminSubject,
-            html: adminHtml
-        });
-        console.log(`🟢 Brevo Email alert sent to Admin (${adminEmail})!`);
+        await sendEmail(adminEmail, adminSubject, adminHtml);
+        console.log(`🟢 Brevo API: Alert sent to Admin (${adminEmail})!`);
     } catch (e) {
-        console.error("Brevo Admin email error:", e.message);
+        console.error(`❌ Brevo API Admin email error:`, e.message);
     }
 
     // 2. Send Confirmation to Customer
@@ -270,38 +259,31 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
                     <h2 style="font-size: 2rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
                     <p style="color: #8C92A4; font-size: 0.9rem; margin: 5px 0 0 0;">Dignified Care & Rapid Emergency Response</p>
                 </div>
-                
                 <h3 style="font-size: 1.4rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Confirmation</h3>
                 <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Dear <strong>${name}</strong>,</p>
                 <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Your booking request for <strong>${service}</strong> has been successfully registered. We are deploying a vehicle to your location immediately.</p>
-                
                 <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 25px 0; font-size: 0.95rem; line-height: 1.6;">
                     <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Booking Reference ID:</span> <strong style="color: #fff;">#${id}</strong></div>
                     <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Service Selected:</span> <strong style="color: #fff;">${service}</strong></div>
                     <div><span style="color: #8C92A4;">Booking Status:</span> <strong style="color: #4ade80;">🟢 Dispatched & Active</strong></div>
                 </div>
-                
                 <p style="color: #8C92A4; font-size: 0.85rem; text-align: center; margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
                     Need help? Call our 24/7 support line at <a href="tel:+919004805097" style="color: #FF6B00; text-decoration: none; font-weight: 600;">+91 90048 05097</a>.<br>
                     Thank you for choosing Anant Ambulance.
                 </p>
             </div>
         `;
-
         try {
-            await transporter.sendMail({
-                from: `"Anant Ambulance" <${brevoSmtpUser}>`,
-                to: customerEmail,
-                subject: customerSubject,
-                html: customerHtml
-            });
-            console.log(`🟢 Brevo Email confirmation sent to Customer (${customerEmail})!`);
+            await sendEmail(customerEmail, customerSubject, customerHtml);
+            console.log(`🟢 Brevo API: Confirmation sent to Customer (${customerEmail})!`);
         } catch (e) {
-            console.error("Brevo Customer email error:", e.message);
+            console.error(`❌ Brevo API Customer email error:`, e.message);
         }
     }
     console.log(`====================================\n`);
 };
+
+
 
 app.post('/api/bookings', (req, res) => {
     const { name, phone, email, service, message, lat, lng } = req.body;
