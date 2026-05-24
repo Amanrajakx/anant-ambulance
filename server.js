@@ -181,131 +181,125 @@ const sendSMS = async (phone, name, service, id) => {
 };
 
 const sendBookingEmails = async (customerEmail, name, phone, service, message, id) => {
-    let host = `localhost:${PORT}`;
-    try {
-        const { networkInterfaces } = await import('os');
-        const nets = networkInterfaces();
-        for (const name of Object.keys(nets)) {
-            for (const net of nets[name]) {
-                if (net.family === 'IPv4' && !net.internal) {
-                    host = `${net.address}:${PORT}`;
-                    break;
-                }
-            }
-        }
-    } catch(e){}
-
-    const trackingUrl = `http://${host}/tracking.html?id=${id}`;
-    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const smtpPort = parseInt(process.env.SMTP_PORT || '587');
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const adminEmail = process.env.ADMIN_EMAIL || smtpUser;
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const adminEmail = process.env.ADMIN_EMAIL || 'amaykadam2411@gmail.com';
 
     console.log(`\n====================================`);
-    console.log(`✉️ EMAIL NOTIFICATION LOG:`);
+    console.log(`✉️ RESEND EMAIL NOTIFICATION LOG:`);
     console.log(`Booking ID: #${id}`);
-    console.log(`Admin Recipient: ${adminEmail || 'Not configured'}`);
+    console.log(`Admin Recipient: ${adminEmail}`);
     console.log(`Customer Recipient: ${customerEmail || 'Not provided'}`);
-    
-    if (!smtpUser || !smtpPass) {
-        console.log(`🟡 Real Emails NOT sent: Set SMTP_USER and SMTP_PASS env variables in .env to send real emails.`);
+
+    if (!resendApiKey) {
+        console.log(`🟡 Real Emails NOT sent: Set RESEND_API_KEY env variable in Render to send real emails.`);
         console.log(`====================================\n`);
         return;
     }
 
+    // 1. Send Alert to Admin
+    const adminSubject = `🚨 NEW BOOKING REQUEST: #${id} - ${service}`;
+    const adminHtml = `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0F1115; color: #F0F0F0; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 30px;">
+            <div style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px; margin-bottom: 25px;">
+                <h2 style="font-size: 1.8rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
+                <p style="color: #ea580c; font-weight: bold; font-size: 1.1rem; margin: 5px 0 0 0;">🚨 NEW BOOKING ALERT 🚨</p>
+            </div>
+            
+            <h3 style="font-size: 1.3rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Details</h3>
+            
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 0.95rem; line-height: 1.8;">
+                <div><span style="color: #8C92A4;">Booking ID:</span> <strong style="color: #fff;">#${id}</strong></div>
+                <div><span style="color: #8C92A4;">Patient Name:</span> <strong style="color: #fff;">${name}</strong></div>
+                <div><span style="color: #8C92A4;">Phone Number:</span> <strong style="color: #fff;">${phone}</strong></div>
+                <div><span style="color: #8C92A4;">Customer Email:</span> <strong style="color: #fff;">${customerEmail || 'Not Provided'}</strong></div>
+                <div><span style="color: #8C92A4;">Service Type:</span> <strong style="color: #fff;">${service}</strong></div>
+                <div><span style="color: #8C92A4;">Message/Address:</span> <p style="color: #fff; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 4px; margin: 5px 0 0 0;">${message || 'None'}</p></div>
+            </div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://anant-ambulance.onrender.com/admin.html" style="background: #22c55e; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; display: inline-block; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;">
+                    💻 Open Admin Dashboard
+                </a>
+            </div>
+        </div>
+    `;
+
     try {
-        const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpPort === 465,
-            family: 4,
-            auth: {
-                user: smtpUser,
-                pass: smtpPass
-            }
-        });
-
-        // 1. Send Alert to Admin
-        if (adminEmail) {
-            const adminSubject = `🚨 NEW BOOKING REQUEST: #${id} - ${service}`;
-            const adminHtml = `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0F1115; color: #F0F0F0; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 30px;">
-                    <div style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px; margin-bottom: 25px;">
-                        <h2 style="font-size: 1.8rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
-                        <p style="color: #ea580c; font-weight: bold; font-size: 1.1rem; margin: 5px 0 0 0;">🚨 NEW BOOKING ALERT 🚨</p>
-                    </div>
-                    
-                    <h3 style="font-size: 1.3rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Details</h3>
-                    
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 20px 0; font-size: 0.95rem; line-height: 1.8;">
-                        <div><span style="color: #8C92A4;">Booking ID:</span> <strong style="color: #fff;">#${id}</strong></div>
-                        <div><span style="color: #8C92A4;">Patient Name:</span> <strong style="color: #fff;">${name}</strong></div>
-                        <div><span style="color: #8C92A4;">Phone Number:</span> <strong style="color: #fff;">${phone}</strong></div>
-                        <div><span style="color: #8C92A4;">Customer Email:</span> <strong style="color: #fff;">${customerEmail || 'Not Provided'}</strong></div>
-                        <div><span style="color: #8C92A4;">Service Type:</span> <strong style="color: #fff;">${service}</strong></div>
-                        <div><span style="color: #8C92A4;">Message/Address:</span> <p style="color: #fff; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 4px; margin: 5px 0 0 0;">${message || 'None'}</p></div>
-                    </div>
-                    
-                    <div style="text-align: center; margin: 30px 0;">
-                        <a href="http://${host}/admin.html" style="background: #22c55e; color: #fff; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: 700; display: inline-block; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px;">
-                            💻 Open Admin Dashboard
-                        </a>
-                    </div>
-                </div>
-            `;
-
-            await transporter.sendMail({
-                from: `"Anant Ambulance Dispatch" <${smtpUser}>`,
+        const responseAdmin = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${resendApiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: 'Anant Ambulance <onboarding@resend.dev>',
                 to: adminEmail,
                 subject: adminSubject,
                 html: adminHtml
-            });
-            console.log(`🟢 Real Email alert sent to Admin (${adminEmail})!`);
+            })
+        });
+        const resAdminJson = await responseAdmin.json();
+        if (responseAdmin.ok) {
+            console.log(`🟢 Real Resend Email alert sent to Admin (${adminEmail})! ID: ${resAdminJson.id}`);
+        } else {
+            console.error(`❌ Resend Admin email failed:`, resAdminJson);
         }
-
-        // 2. Send Confirmation to Customer
-        if (customerEmail) {
-            const customerSubject = `Booking Confirmed: Anant Ambulance Service #${id}`;
-            const customerHtml = `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0F1115; color: #F0F0F0; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 30px;">
-                    <div style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px; margin-bottom: 25px;">
-                        <h2 style="font-size: 2rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
-                        <p style="color: #8C92A4; font-size: 0.9rem; margin: 5px 0 0 0;">Dignified Care & Rapid Emergency Response</p>
-                    </div>
-                    
-                    <h3 style="font-size: 1.4rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Confirmation</h3>
-                    <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Dear <strong>${name}</strong>,</p>
-                    <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Your booking request for <strong>${service}</strong> has been successfully registered. We are deploying a vehicle to your location immediately.</p>
-                    
-                    <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 25px 0; font-size: 0.95rem; line-height: 1.6;">
-                        <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Booking Reference ID:</span> <strong style="color: #fff;">#${id}</strong></div>
-                        <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Service Selected:</span> <strong style="color: #fff;">${service}</strong></div>
-                        <div><span style="color: #8C92A4;">Booking Status:</span> <strong style="color: #4ade80;">🟢 Dispatched & Active</strong></div>
-                    </div>
-                    
-                    
-                    
-                    <p style="color: #8C92A4; font-size: 0.85rem; text-align: center; margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
-                        Need help? Call our 24/7 support line at <a href="tel:+919004805097" style="color: #FF6B00; text-decoration: none; font-weight: 600;">+91 90048 05097</a>.<br>
-                        Thank you for choosing Anant Ambulance.
-                    </p>
-                </div>
-            `;
-
-            await transporter.sendMail({
-                from: `"Anant Ambulance Support" <${smtpUser}>`,
-                to: customerEmail,
-                subject: customerSubject,
-                html: customerHtml
-            });
-            console.log(`🟢 Real Email confirmation sent to Customer (${customerEmail})!`);
-        }
-        console.log(`====================================\n`);
-    } catch(e) {
-        console.error("Email delivery failed:", e);
-        console.log(`====================================\n`);
+    } catch (e) {
+        console.error("Resend Admin email error:", e);
     }
+
+    // 2. Send Confirmation to Customer
+    if (customerEmail) {
+        const customerSubject = `Booking Confirmed: Anant Ambulance Service #${id}`;
+        const customerHtml = `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #0F1115; color: #F0F0F0; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 30px;">
+                <div style="text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 20px; margin-bottom: 25px;">
+                    <h2 style="font-size: 2rem; color: #FF6B00; margin: 0; letter-spacing: 2px;">ANANT AMBULANCE</h2>
+                    <p style="color: #8C92A4; font-size: 0.9rem; margin: 5px 0 0 0;">Dignified Care & Rapid Emergency Response</p>
+                </div>
+                
+                <h3 style="font-size: 1.4rem; color: #fff; margin-top: 0; font-weight: 600;">Booking Confirmation</h3>
+                <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Dear <strong>${name}</strong>,</p>
+                <p style="color: #A0A5B5; font-size: 1rem; line-height: 1.6;">Your booking request for <strong>${service}</strong> has been successfully registered. We are deploying a vehicle to your location immediately.</p>
+                
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px; padding: 20px; margin: 25px 0; font-size: 0.95rem; line-height: 1.6;">
+                    <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Booking Reference ID:</span> <strong style="color: #fff;">#${id}</strong></div>
+                    <div style="margin-bottom: 8px;"><span style="color: #8C92A4;">Service Selected:</span> <strong style="color: #fff;">${service}</strong></div>
+                    <div><span style="color: #8C92A4;">Booking Status:</span> <strong style="color: #4ade80;">🟢 Dispatched & Active</strong></div>
+                </div>
+                
+                <p style="color: #8C92A4; font-size: 0.85rem; text-align: center; margin-top: 35px; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;">
+                    Need help? Call our 24/7 support line at <a href="tel:+919004805097" style="color: #FF6B00; text-decoration: none; font-weight: 600;">+91 90048 05097</a>.<br>
+                    Thank you for choosing Anant Ambulance.
+                </p>
+            </div>
+        `;
+
+        try {
+            const responseCustomer = await fetch('https://api.resend.com/emails', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${resendApiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    from: 'Anant Ambulance <onboarding@resend.dev>',
+                    to: customerEmail,
+                    subject: customerSubject,
+                    html: customerHtml
+                })
+            });
+            const resCustJson = await responseCustomer.json();
+            if (responseCustomer.ok) {
+                console.log(`🟢 Real Resend Email confirmation sent to Customer (${customerEmail})! ID: ${resCustJson.id}`);
+            } else {
+                console.error(`❌ Resend Customer email failed (if using onboarding@resend.dev, the destination email address must be the one registered with Resend):`, resCustJson);
+            }
+        } catch (e) {
+            console.error("Resend Customer email error:", e);
+        }
+    }
+    console.log(`====================================\n`);
 };
 
 app.post('/api/bookings', (req, res) => {
@@ -470,31 +464,11 @@ app.post('/api/bookings/:id/operator-message', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     
-    // Verify SMTP connection on startup
-    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
-    const smtpPort = parseInt(process.env.SMTP_PORT || '587');
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    if (smtpUser && smtpPass) {
-        console.log("Verifying SMTP connection settings...");
-        const transporter = nodemailer.createTransport({
-            host: smtpHost,
-            port: smtpPort,
-            secure: smtpPort === 465,
-            family: 4,
-            auth: {
-                user: smtpUser,
-                pass: smtpPass
-            }
-        });
-        transporter.verify((error, success) => {
-            if (error) {
-                console.error("❌ SMTP Verification Failed:", error.message);
-            } else {
-                console.log("🟢 SMTP Server is ready to send emails.");
-            }
-        });
+    // Verify Resend configuration on startup
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (resendApiKey) {
+        console.log("🟢 Resend Email API is configured and ready to send emails.");
     } else {
-        console.log("🟡 SMTP variables not fully configured. Email sending is disabled.");
+        console.log("🟡 RESEND_API_KEY not configured. Email sending is disabled.");
     }
 });
