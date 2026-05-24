@@ -929,6 +929,44 @@ nav {
   cursor: pointer;
 }
 
+/* ─── Nav Book Button ─────────────────── */
+.nav-book-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #22c55e;
+  color: white;
+  padding: 9px 16px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.85rem;
+  transition: transform 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.nav-book-btn:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .nav-book-btn {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+  .nav-book-text {
+    display: none;
+  }
+  .nav-book-btn {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
 /* ─── Responsive ──────────────────────── */
 .header-calls {
   display: flex;
