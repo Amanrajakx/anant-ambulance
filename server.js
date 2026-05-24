@@ -200,13 +200,25 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
 
     const transporter = nodemailer.createTransport({
         host: 'smtp-relay.brevo.com',
-        port: 587,
-        secure: false,
+        port: 465,
+        secure: true,
         auth: {
             user: brevoSmtpUser,
             pass: brevoSmtpKey
-        }
+        },
+        connectionTimeout: 10000,
+        socketTimeout: 10000
     });
+
+    // Verify SMTP connection before sending
+    try {
+        await transporter.verify();
+        console.log('✅ Brevo SMTP connection verified!');
+    } catch (verifyErr) {
+        console.error('❌ Brevo SMTP connection FAILED:', verifyErr.message);
+        console.log(`====================================\n`);
+        return;
+    }
 
     // 1. Send Alert to Admin
     const adminSubject = `🚨 NEW BOOKING REQUEST: #${id} - ${service}`;
