@@ -468,4 +468,31 @@ app.post('/api/bookings/:id/operator-message', (req, res) => {
 // Start Server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+    
+    // Verify SMTP connection on startup
+    const smtpHost = process.env.SMTP_HOST || 'smtp.gmail.com';
+    const smtpPort = parseInt(process.env.SMTP_PORT || '587');
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    if (smtpUser && smtpPass) {
+        console.log("Verifying SMTP connection settings...");
+        const transporter = nodemailer.createTransport({
+            host: smtpHost,
+            port: smtpPort,
+            secure: smtpPort === 465,
+            auth: {
+                user: smtpUser,
+                pass: smtpPass
+            }
+        });
+        transporter.verify((error, success) => {
+            if (error) {
+                console.error("❌ SMTP Verification Failed:", error.message);
+            } else {
+                console.log("🟢 SMTP Server is ready to send emails.");
+            }
+        });
+    } else {
+        console.log("🟡 SMTP variables not fully configured. Email sending is disabled.");
+    }
 });
