@@ -239,7 +239,7 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
     // 1. Send Alert to Admin
     try {
         await transporter.sendMail({
-            from: `"Anant Ambulance" <${adminEmail}>`,
+            from: `"Anant Ambulance" <${brevoSmtpUser}>`,
             to: adminEmail,
             subject: adminSubject,
             html: adminHtml
@@ -278,7 +278,7 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
 
         try {
             await transporter.sendMail({
-                from: `"Anant Ambulance" <${adminEmail}>`,
+                from: `"Anant Ambulance" <${brevoSmtpUser}>`,
                 to: customerEmail,
                 subject: customerSubject,
                 html: customerHtml
