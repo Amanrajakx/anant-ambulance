@@ -219,6 +219,7 @@ const sendBookingEmails = async (customerEmail, name, phone, service, message, i
             host: smtpHost,
             port: smtpPort,
             secure: smtpPort === 465,
+            family: 4,
             auth: {
                 user: smtpUser,
                 pass: smtpPass
@@ -480,6 +481,7 @@ app.listen(PORT, () => {
             host: smtpHost,
             port: smtpPort,
             secure: smtpPort === 465,
+            family: 4,
             auth: {
                 user: smtpUser,
                 pass: smtpPass
