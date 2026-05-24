@@ -453,11 +453,12 @@ app.post('/api/bookings/:id/operator-message', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
     
-    // Verify Resend configuration on startup
-    const resendApiKey = process.env.RESEND_API_KEY;
-    if (resendApiKey) {
-        console.log("🟢 Resend Email API is configured and ready to send emails.");
+    // Verify Brevo SMTP configuration on startup
+    const brevoKey = process.env.BREVO_SMTP_KEY;
+    const brevoUser = process.env.BREVO_SMTP_USER;
+    if (brevoKey && brevoUser) {
+        console.log(`🟢 Brevo SMTP is configured. Emails will be sent from ${brevoUser}.`);
     } else {
-        console.log("🟡 RESEND_API_KEY not configured. Email sending is disabled.");
+        console.log(`🟡 BREVO_SMTP_KEY or BREVO_SMTP_USER not configured. Email sending is disabled.`);
     }
 });
