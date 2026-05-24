@@ -345,7 +345,7 @@ app.post('/api/bookings', (req, res) => {
             [bookingId, routeJson, distanceKm, durationSec, isBusy]);
 
         // Trigger SMS
-        sendSMS(phone, name, service, bookingId);
+        // sendSMS(phone, name, service, bookingId);
 
         // Trigger Emails (Both Customer and Admin Alert)
         sendBookingEmails(email, name, phone, service, message, bookingId);
